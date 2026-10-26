@@ -589,6 +589,11 @@ html[lang="ar"] .footer h5 { letter-spacing: 0; font-size: 15px; }
   .footer__grid { grid-template-columns: 1fr; }
   .wa { width: 54px; height: 54px; bottom: 18px; inset-inline-end: 18px; }
 }
+/* Reduced motion: keep the site's transitions but calm the large movements.
+   (Zeroing every duration made infinite loops like the countries band spin endlessly.) */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  .hero__slides { transform: none !important; }
+  .hero__slide.active .hero__img, .hero__slide.leaving .hero__img { animation-duration: 18s; }
+  .markets-band__track { animation-duration: calc(var(--mq-dur, 60s) * 1.6); }
+  .btn-cta::after { animation: none; }
 }
