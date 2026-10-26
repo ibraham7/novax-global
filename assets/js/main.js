@@ -64,7 +64,11 @@
     "f.name": "Full name", "f.company": "Company", "f.phone": "Phone / WhatsApp", "f.country": "Country",
     "f.type": "Request type", "f.msg": "Details (quantities, sizes, delivery date)",
     "f.send": "Send via WhatsApp", "f.note": "We reply to every request within 24 hours.",
-    "o1": "Living rooms", "o2": "Bedrooms", "o3": "Dining rooms", "o4": "Hotel / commercial project", "o5": "Offices", "o6": "Other",
+    "o1": "Sofa sets", "o2": "Corner sofas", "o3": "Modular", "o4": "Hotel / commercial project", "o5": "Outdoor & tea sets", "o6": "Other",
+    "ct.lead": "Send us your request and a consultant who speaks your language will reply with a clear quote.",
+    "ct.copy": "Copy", "ct.formT": "Request a quote", "ct.formD": "Takes less than a minute",
+    "f.err": "Please fill in your name, phone and country, and pick a request type.",
+    "f.ok": "WhatsApp is open with your request ready. Press send there to complete it.",
     "ft.about": "Exporting luxury Turkish furniture from the factory to the world.",
     "ft.company": "Company", "ft.coll": "Collections", "ft.rights": "All rights reserved."
   };
@@ -666,9 +670,27 @@
   });
 
   /* ---------- Quote form → WhatsApp ---------- */
-  $("#quoteForm").addEventListener("submit", e => {
+  const qForm = $("#quoteForm"), qMsg = $("#qMsg");
+  const MSG_AR = { "f.err": "يرجى تعبئة الاسم ورقم الهاتف والدولة واختيار نوع الطلب.", "f.ok": "فتحنا لك واتساب برسالة جاهزة. اضغط إرسال هناك لإتمام الطلب." };
+  const T = k => document.documentElement.lang === "en" ? EN[k] : (AR[k] || MSG_AR[k]);
+  const required = ["name", "phone", "country"];
+  function qProgress() {
+    const f = new FormData(qForm), keys = ["name", "company", "phone", "country", "type", "msg"];
+    const done = keys.filter(k => String(f.get(k) || "").trim()).length, pct = Math.round(done / keys.length * 100);
+    $("#qPct").textContent = pct + "%"; $("#qBar").style.width = pct + "%";
+  }
+  qForm.addEventListener("input", e => { qProgress(); e.target.closest(".qfield")?.classList.remove("invalid"); if (e.target.name === "type") $(".qchips").classList.remove("invalid"); });
+  qForm.addEventListener("submit", e => {
     e.preventDefault();
-    const f = new FormData(e.target);
+    const f = new FormData(qForm);
+    const missing = required.filter(k => !String(f.get(k) || "").trim());
+    missing.forEach(k => qForm.elements[k].closest(".qfield").classList.add("invalid"));
+    if (!f.get("type")) $(".qchips").classList.add("invalid");
+    if (missing.length || !f.get("type")) {
+      qMsg.className = "qform__msg err"; qMsg.textContent = T("f.err");
+      (qForm.querySelector(".invalid input") || qForm.querySelector(".qchips input"))?.focus();
+      return;
+    }
     const lines = [
       "NovaX Global — Quote Request",
       `Name: ${f.get("name")}`, `Company: ${f.get("company") || "-"}`,
@@ -676,7 +698,17 @@
       `Type: ${f.get("type")}`, `Details: ${f.get("msg") || "-"}`
     ];
     window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank", "noopener");
+    qMsg.className = "qform__msg ok"; qMsg.textContent = T("f.ok");
   });
+
+  // copy email, Istanbul local time
+  $$("[data-copy]").forEach(b => b.addEventListener("click", () => {
+    const done = () => { b.classList.add("done"); setTimeout(() => b.classList.remove("done"), 1600); };
+    navigator.clipboard?.writeText(b.dataset.copy).then(done, done) ?? done();
+  }));
+  const ist = $("#istTime");
+  const tickClock = () => { ist.textContent = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Istanbul", hour: "2-digit", minute: "2-digit" }).format(new Date()); };
+  tickClock(); setInterval(tickClock, 30000);
 
   $("#year").textContent = new Date().getFullYear();
 })();
