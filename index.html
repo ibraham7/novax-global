@@ -422,24 +422,42 @@
     </section>
 
     <!-- ===== Showcase ===== -->
-    <section class="section showcase">
+    <section class="section showcase" id="showcase">
+      <div class="showcase__bgname" aria-hidden="true"><span id="shBg">Duba</span></div>
       <div class="container section-head">
         <div>
           <span class="eyebrow reveal" data-i18n="show.eyebrow">مختارات</span>
-          <h2 class="h-section reveal reveal-d1" data-i18n-html="show.title">تصاميم تصنع <em>الفرق</em></h2>
+          <h2 class="h-section" data-split data-i18n-html="show.title">تصاميم تصنع <em>الفرق</em></h2>
         </div>
-        <div class="showcase__nav reveal reveal-d2">
-          <button id="shPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
-          <button id="shNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-        </div>
+        <p class="lead reveal reveal-d2" data-i18n="show.lead">مجموعة مختارة من أكثر الموديلات طلباً لدى عملائنا في الخليج وأوروبا. اسحب أو استخدم الأسهم للتنقل.</p>
       </div>
-      <div class="showcase__track" id="showTrack">
-        <div class="shot"><div class="frame"><img src="assets/img/products/duba.jpg" alt="" loading="lazy"></div><div class="shot__cap"><h4>Duba</h4><span data-i18n="tag.living">جلوس</span></div></div>
-        <div class="shot"><div class="frame"><img src="assets/img/products/ola.jpg" alt="" loading="lazy"></div><div class="shot__cap"><h4>Ola</h4><span data-i18n="tag.living">جلوس</span></div></div>
-        <div class="shot"><div class="frame"><img src="assets/img/products/oslo.jpg" alt="" loading="lazy"></div><div class="shot__cap"><h4>Oslo</h4><span data-i18n="tag.living">جلوس</span></div></div>
-        <div class="shot"><div class="frame"><img src="assets/img/products/pola.jpg" alt="" loading="lazy"></div><div class="shot__cap"><h4>Pola</h4><span data-i18n="tag.living">جلوس</span></div></div>
-        <div class="shot"><div class="frame"><img src="assets/img/products/riva.jpg" alt="" loading="lazy"></div><div class="shot__cap"><h4>Riva</h4><span data-i18n="tag.living">جلوس</span></div></div>
-        <div class="shot"><div class="frame"><img src="assets/img/products/olto.jpg" alt="" loading="lazy"></div><div class="shot__cap"><h4>Olto</h4><span data-i18n="tag.living">جلوس</span></div></div>
+
+      <div class="cflow reveal" id="cflow">
+        <div class="cflow__stage" id="cfStage">
+          <article class="cf-card" data-name="Duba"><img src="assets/img/products/duba.jpg" alt="Duba"></article>
+          <article class="cf-card" data-name="Ola"><img src="assets/img/products/ola.jpg" alt="Ola"></article>
+          <article class="cf-card" data-name="Oslo"><img src="assets/img/products/oslo.jpg" alt="Oslo"></article>
+          <article class="cf-card" data-name="Pola"><img src="assets/img/products/pola.jpg" alt="Pola"></article>
+          <article class="cf-card" data-name="Riva"><img src="assets/img/products/riva.jpg" alt="Riva"></article>
+          <article class="cf-card" data-name="Olto"><img src="assets/img/products/olto.jpg" alt="Olto"></article>
+          <article class="cf-card" data-name="Naz"><img src="assets/img/products/naz.jpg" alt="Naz"></article>
+          <article class="cf-card" data-name="Hamster"><img src="assets/img/products/hamster.jpg" alt="Hamster"></article>
+        </div>
+
+        <div class="container cflow__bar">
+          <div class="cflow__info">
+            <span class="cflow__idx"><b id="cfIdx">01</b> / <span id="cfTotal">08</span></span>
+            <div class="cflow__name"><h3 id="cfName">Duba</h3><span data-i18n="sp.set">طقم كنب</span></div>
+          </div>
+          <div class="cflow__progress"><i id="cfProg"></i></div>
+          <div class="cflow__ctrl">
+            <a href="#contact" class="btn btn--solid btn--icon" data-magnetic><span data-i18n="sp.ask">اسأل عن السعر</span><span class="btn__icon"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></span></a>
+            <div class="cflow__arrows">
+              <button id="cfPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+              <button id="cfNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 

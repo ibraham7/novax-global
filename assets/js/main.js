@@ -44,6 +44,7 @@
     "st6.t": "Shipping & Delivery", "st6.d": "Container loading, customs paperwork and door delivery.",
     "reg.eyebrow": "Our Markets", "reg.title": "Türkiye at the centre, <em>the world</em> our destination",
     "reg.lead": "From our warehouses in Türkiye we ship by land and sea to four main regions. Pick yours to see the route.",
+    "show.lead": "A selection of the models our clients in the Gulf and Europe order most. Drag or use the arrows to browse.",
     "reg.live": "Active routes", "reg.drag": "Drag to spin the globe",
     "r1.t": "Arabian Gulf", "r1.d": "Saudi Arabia · UAE · Qatar · Kuwait · Oman · Bahrain",
     "r2.t": "Middle East", "r2.d": "Iraq · Jordan · Lebanon · Syria",
@@ -110,6 +111,7 @@
     try { buildMarquee(); } catch (e) { /* not built yet on first load */ }
     try { renderSpots(); moveKnob(); } catch (e) { /* spotlight not ready yet */ }
     try { pCurrent = -2; processScroll(); } catch (e) { /* timeline not ready yet */ }
+    if (window.__cfLayout) window.__cfLayout();
     requestAnimationFrame(() => moveInd(activeLink));
     try { localStorage.setItem("nx-lang", lang); } catch (e) {}
   }
@@ -272,16 +274,71 @@
   }), { threshold: .6 });
   $$("[data-count]").forEach(el => co.observe(el));
 
-  /* ---------- Showcase drag + arrows ---------- */
-  const track = $("#showTrack");
-  const step = () => (track.querySelector(".shot")?.offsetWidth || 400) + 22;
-  const dirSign = () => document.documentElement.dir === "rtl" ? -1 : 1;
-  $("#shNext").onclick = () => track.scrollBy({ left: step() * dirSign(), behavior: "smooth" });
-  $("#shPrev").onclick = () => track.scrollBy({ left: -step() * dirSign(), behavior: "smooth" });
-  let down = false, sx = 0, sl = 0;
-  track.addEventListener("pointerdown", e => { if (e.pointerType !== "mouse") return; down = true; sx = e.clientX; sl = track.scrollLeft; track.classList.add("dragging"); });
-  addEventListener("pointerup", () => { down = false; track.classList.remove("dragging"); });
-  addEventListener("pointermove", e => { if (down) track.scrollLeft = sl - (e.clientX - sx); });
+  /* ---------- Showcase: 3D coverflow ---------- */
+  (() => {
+    const stage = $("#cfStage"), cards = $$(".cf-card", stage), N = cards.length, AUTO = 5000;
+    let pos = 0, dragX = null, dragOff = 0, timer;
+    $("#cfTotal").textContent = String(N).padStart(2, "0");
+    const rtl = () => document.documentElement.dir === "rtl";
+    const wrapD = d => ((d % N) + N + N / 2) % N - N / 2; // shortest signed distance on the ring
+
+    function layout() {
+      const w = cards[0].offsetWidth, s = rtl() ? -1 : 1;
+      cards.forEach((c, i) => {
+        const d = wrapD(i - pos - dragOff), a = Math.abs(d);
+        const x = d * w * .62 * s, z = -a * 220, ry = -d * 22 * s, sc = 1 - Math.min(a, 3) * .06;
+        c.style.transform = `translate3d(${x}px,0,${z}px) rotateY(${ry}deg) scale(${sc})`;
+        c.style.opacity = a > 2.6 ? 0 : 1;
+        c.style.zIndex = 100 - Math.round(a * 10);
+        c.style.filter = `brightness(${(1 - Math.min(a, 2) * .28).toFixed(2)})`;
+        c.classList.toggle("is-active", Math.round(a * 100) === 0);
+      });
+    }
+    function update() {
+      const i = ((pos % N) + N) % N, name = cards[i].dataset.name;
+      $("#cfIdx").textContent = String(i + 1).padStart(2, "0");
+      $("#cfProg").style.transform = `scaleX(${(i + 1) / N})`;
+      const nm = $("#cfName").parentElement, bg = $("#shBg").parentElement;
+      nm.classList.add("swap"); bg.classList.add("swap");
+      setTimeout(() => { $("#cfName").textContent = name; $("#shBg").textContent = name; nm.classList.remove("swap"); bg.classList.remove("swap"); }, 320);
+      layout();
+    }
+    const go = d => { pos += d; update(); restart(); };
+    function restart() { clearTimeout(timer); timer = setTimeout(() => go(1), AUTO); }
+
+    $("#cfNext").onclick = () => go(1);
+    $("#cfPrev").onclick = () => go(-1);
+    stage.addEventListener("mouseenter", () => clearTimeout(timer));
+    stage.addEventListener("mouseleave", restart);
+
+    // drag / swipe; a tap on a side card brings it to the front
+    let downCard = null, moved = false;
+    stage.addEventListener("pointerdown", e => {
+      dragX = e.clientX; dragOff = 0; moved = false; downCard = e.target.closest(".cf-card");
+      stage.setPointerCapture(e.pointerId); clearTimeout(timer);
+    });
+    stage.addEventListener("pointermove", e => {
+      if (dragX === null) return;
+      const dx = e.clientX - dragX; if (Math.abs(dx) > 6) { moved = true; stage.classList.add("dragging"); }
+      if (!moved) return;
+      dragOff = -dx / (cards[0].offsetWidth * .62) * (rtl() ? -1 : 1); layout();
+    });
+    const end = () => {
+      if (dragX === null) return;
+      let step = Math.round(dragOff); dragX = null; dragOff = 0;
+      stage.classList.remove("dragging");
+      if (!moved && downCard) step = Math.round(wrapD(cards.indexOf(downCard) - pos));
+      if (step) go(step); else { layout(); restart(); }
+    };
+    stage.addEventListener("pointerup", end); stage.addEventListener("pointercancel", end);
+    addEventListener("keydown", e => {
+      const r = $("#showcase").getBoundingClientRect(); if (r.top > innerHeight || r.bottom < 0) return;
+      if (e.key === "ArrowRight") go(rtl() ? -1 : 1); if (e.key === "ArrowLeft") go(rtl() ? 1 : -1);
+    });
+    addEventListener("resize", layout);
+    update(); restart();
+    window.__cfLayout = layout;
+  })();
 
   /* ---------- Collections accordion ---------- */
   const panels = $$(".cpanel");

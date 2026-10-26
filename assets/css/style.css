@@ -764,23 +764,67 @@ html[dir="rtl"] .rtab__bar i { transform-origin: right; }
 @keyframes pulse { 0% { transform: scale(.4); opacity: 1; } 100% { transform: scale(3.2); opacity: 0; } }
 @media (hover: none) { .globe__drag { display: none; } }
 
-/* Showcase (horizontal) */
-.showcase { background: var(--ink-2); }
-.showcase__track { display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; padding-inline: var(--gutter); padding-bottom: 20px; scrollbar-width: none; cursor: grab; }
-.showcase__track::-webkit-scrollbar { display: none; }
-.showcase__track.dragging { cursor: grabbing; scroll-snap-type: none; }
-.shot { flex: 0 0 clamp(280px, 34vw, 460px); scroll-snap-align: start; }
-.shot .frame { aspect-ratio: 3/4; clip-path: none; }
-.shot .frame img { transform: scale(1.05); transition: transform 1.2s var(--ease-out); pointer-events: none; }
-.shot:hover .frame img { transform: scale(1); }
-.shot__cap { display: flex; justify-content: space-between; gap: 16px; margin-top: 18px; }
-.shot__cap h4 { font-family: var(--ff-display); font-weight: 400; font-size: 24px; }
-.shot__cap span { color: var(--gold); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; }
-.showcase__nav { display: flex; gap: 10px; }
-.showcase__nav button { width: 56px; height: 56px; border: 1px solid var(--line); border-radius: 50%; display: grid; place-items: center; transition: .4s; }
-.showcase__nav button:hover { background: var(--gold); color: var(--ink); border-color: var(--gold); }
-.showcase__nav svg { width: 18px; height: 18px; }
-html[dir="rtl"] .showcase__nav svg { transform: scaleX(-1); }
+/* Showcase: 3D coverflow */
+.showcase { position: relative; overflow: hidden; background: radial-gradient(ellipse at 50% 60%, rgba(91,63,42,.25), transparent 60%), var(--ink-2); }
+.showcase .section-head .h-section { margin-top: 20px; }
+.showcase .h-section .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; }
+.showcase .h-section .w > span { display: inline-block; transform: translateY(110%) rotate(4deg); transition: transform 1.1s var(--ease-out); transition-delay: calc(var(--i) * 70ms); }
+.showcase .h-section.in .w > span { transform: none; }
+.showcase__bgname {
+  position: absolute; left: 0; right: 0; top: 46%; transform: translateY(-50%); text-align: center; pointer-events: none; direction: ltr;
+  font-family: "Cormorant Garamond", serif; font-size: clamp(120px, 22vw, 360px); line-height: 1; letter-spacing: .04em;
+  color: transparent; -webkit-text-stroke: 1px rgba(193,154,91,.12); white-space: nowrap;
+}
+.showcase__bgname span { display: inline-block; transition: opacity .5s, transform .9s var(--ease-out); }
+.showcase__bgname.swap span { opacity: 0; transform: translateY(30px); }
+
+.cflow { position: relative; }
+.cflow__stage {
+  position: relative; height: clamp(340px, 42vw, 560px); perspective: 1800px; transform-style: preserve-3d;
+  cursor: grab; touch-action: pan-y; user-select: none;
+}
+.cflow__stage.dragging { cursor: grabbing; }
+.cf-card {
+  position: absolute; top: 0; left: 50%; width: clamp(260px, 44vw, 720px); height: 100%; margin-left: calc(clamp(260px, 44vw, 720px) / -2);
+  border-radius: 26px; overflow: hidden; background: var(--ink-3);
+  box-shadow: 0 50px 90px -40px rgba(0,0,0,.9); will-change: transform;
+  transition: transform 1s var(--ease-out), opacity .8s var(--ease-out), filter .8s var(--ease-out);
+}
+.cflow__stage.dragging .cf-card { transition: none; }
+.cf-card img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; transform: scale(1.12); transition: transform 1.6s var(--ease-out); }
+.cf-card.is-active img { transform: scale(1); }
+.cf-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(13,13,11,.55)); opacity: 0; transition: opacity .8s; }
+.cf-card.is-active::after { opacity: 1; }
+.cf-card:not(.is-active) { cursor: pointer; }
+
+.cflow__bar { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: clamp(20px, 3vw, 40px); margin-top: 40px; }
+.cflow__info { display: flex; align-items: center; gap: 22px; }
+.cflow__idx { font-family: "Cormorant Garamond", serif; font-size: 16px; color: var(--muted); direction: ltr; white-space: nowrap; }
+.cflow__idx b { font-size: 34px; font-weight: 400; color: var(--gold-2); }
+.cflow__name { overflow: hidden; }
+.cflow__name h3 { font-family: "Cormorant Garamond", serif; font-weight: 400; font-size: clamp(30px, 3vw, 44px); line-height: 1; letter-spacing: .04em; transition: transform .6s var(--ease-out), opacity .4s; }
+.cflow__name.swap h3 { transform: translateY(-100%); opacity: 0; }
+.cflow__name span { font-size: 13px; color: var(--muted); }
+.cflow__progress { position: relative; height: 2px; border-radius: 2px; background: rgba(244,239,230,.1); overflow: hidden; }
+.cflow__progress i { position: absolute; inset: 0; background: linear-gradient(90deg, var(--gold), var(--gold-2)); transform-origin: left; transform: scaleX(0); transition: transform .8s var(--ease-out); }
+html[dir="rtl"] .cflow__progress i { transform-origin: right; }
+.cflow__ctrl { display: flex; align-items: center; gap: 14px; }
+.cflow__arrows { display: flex; gap: 8px; direction: ltr; }
+.cflow__arrows button { width: 52px; height: 52px; border-radius: 50%; border: 1px solid rgba(244,239,230,.2); display: grid; place-items: center; transition: background .6s var(--ease-out), color .6s, border-color .6s; }
+.cflow__arrows button:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+.cflow__arrows svg { width: 18px; height: 18px; transition: transform .6s var(--ease-out); }
+.cflow__arrows button:first-child:hover svg { transform: translateX(-3px); }
+.cflow__arrows button:last-child:hover svg { transform: translateX(3px); }
+
+@media (max-width: 900px) {
+  .cflow__bar { grid-template-columns: 1fr auto; }
+  .cflow__progress { grid-column: 1 / -1; grid-row: 2; }
+  .cflow__ctrl .btn { display: none; }
+}
+@media (max-width: 600px) {
+  .cf-card { width: 74vw; margin-left: -37vw; }
+  .cflow__stage { height: 92vw; max-height: 420px; }
+}
 
 /* Catalog CTA */
 .catalog { position: relative; overflow: hidden; padding-block: clamp(110px, 14vw, 200px); text-align: center; }
