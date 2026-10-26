@@ -62,6 +62,10 @@
   $$("[data-i18n]").forEach(el => AR[el.dataset.i18n] = el.textContent);
   $$("[data-i18n-html]").forEach(el => AR[el.dataset.i18nHtml] = el.innerHTML);
 
+  $$(".btn > span[data-i18n]").forEach(sp => {
+    const r = document.createElement("span"); r.className = "roll"; r.dataset.roll = "";
+    sp.replaceWith(r); r.appendChild(sp);
+  });
   function syncRolls() { $$("[data-roll]").forEach(r => r.dataset.text = r.textContent.trim()); }
   syncRolls();
   let activeLink = null, moveInd = () => {};
@@ -103,30 +107,55 @@
   $$("img").forEach(img => img.addEventListener("error", () => img.style.visibility = "hidden"));
 
   /* ---------- Hero slider ---------- */
-  const slides = $$(".hero__slide"), dots = $("#heroDots"), idx = $("#heroIdx");
-  let cur = 0, timer;
-  slides.forEach((_, i) => {
-    const b = document.createElement("button");
-    b.setAttribute("aria-label", `Slide ${i + 1}`);
-    b.innerHTML = "<i></i>";
-    b.onclick = () => go(i);
-    dots.appendChild(b);
-  });
+  const hero = $("#hero"), slides = $$(".hero__slide"), thumbs = $$(".hero__thumb");
+  const caption = $("#heroCaption"), numEl = $("#heroNum"), nameEl = $("#heroName");
+  const DUR = 7000; let cur = 0, timer, busy = false;
+  hero.style.setProperty("--dur", DUR + "ms");
   function go(i) {
-    slides[cur].classList.remove("active"); dots.children[cur].classList.remove("active");
-    cur = (i + slides.length) % slides.length;
-    slides[cur].classList.add("active");
-    const d = dots.children[cur]; d.classList.remove("active"); void d.offsetWidth; d.classList.add("active");
-    idx.textContent = String(cur + 1).padStart(2, "0");
-    clearTimeout(timer); timer = setTimeout(() => go(cur + 1), 6000);
+    i = (i + slides.length) % slides.length;
+    if (i === cur || busy) return;
+    busy = true;
+    const prev = slides[cur], next = slides[i];
+    prev.classList.remove("active"); prev.classList.add("leaving");
+    next.classList.add("active");
+    thumbs.forEach((t, k) => t.classList.toggle("active", k === i));
+    const th = thumbs[i].querySelector("i"); th.style.display = "none"; void th.offsetWidth; th.style.display = "";
+    caption.classList.add("swap");
+    setTimeout(() => {
+      numEl.textContent = String(i + 1).padStart(2, "0");
+      nameEl.textContent = next.dataset.name;
+      caption.classList.remove("swap");
+    }, 380);
+    cur = i;
+    setTimeout(() => { prev.classList.remove("leaving"); busy = false; }, 1650);
+    schedule();
   }
-  go(0);
+  function schedule() { clearTimeout(timer); timer = setTimeout(() => go(cur + 1), DUR); }
+  thumbs.forEach((t, i) => t.addEventListener("click", () => go(i)));
+  const rtl = () => document.documentElement.dir === "rtl";
+  $("#heroNext").onclick = () => go(cur + 1);
+  $("#heroPrev").onclick = () => go(cur - 1);
+  schedule();
+  // swipe on touch
+  let tx = null;
+  hero.addEventListener("touchstart", e => tx = e.touches[0].clientX, { passive: true });
+  hero.addEventListener("touchend", e => {
+    if (tx === null) return; const dx = e.changedTouches[0].clientX - tx; tx = null;
+    if (Math.abs(dx) > 50) go(cur + ((dx < 0) !== rtl() ? 1 : -1));
+  });
+  // subtle mouse parallax
+  hero.addEventListener("mousemove", e => {
+    const r = hero.getBoundingClientRect();
+    hero.style.setProperty("--mx", ((e.clientX - r.left) / r.width - .5).toFixed(3));
+    hero.style.setProperty("--my", ((e.clientY - r.top) / r.height - .5).toFixed(3));
+  });
+  hero.addEventListener("mouseleave", () => { hero.style.setProperty("--mx", 0); hero.style.setProperty("--my", 0); });
 
   /* ---------- Marquee (duplicate for seamless loop) ---------- */
   const mq = $("#marquee"); mq.innerHTML += mq.innerHTML;
 
   /* ---------- Header ---------- */
-  const header = $("#header"), progress = $("#progress"); let lastY = 0;
+  const header = $("#header"), progress = $("#progress"); let lastY = scrollY, off = 0, snapT;
   const navLinks = $$("#nav a"), ind = $("#navInd");
   moveInd = link => {
     if (!link) { ind.classList.remove("on"); return; }
@@ -139,8 +168,16 @@
   addEventListener("scroll", () => {
     const y = scrollY, max = document.documentElement.scrollHeight - innerHeight;
     header.classList.toggle("scrolled", y > 60);
-    header.classList.toggle("hide", y > lastY + 4 && y > 600 && !document.body.classList.contains("menu-open"));
-    if (y < lastY - 4) header.classList.remove("hide");
+    // drawer: header follows the scroll delta, then settles smoothly
+    const h = header.offsetHeight + 10;
+    header.classList.remove("snap");
+    if (y < 120 || document.body.classList.contains("menu-open")) off = 0;
+    else off = Math.min(h, Math.max(0, off + (y - lastY)));
+    header.style.transform = `translateY(${-off}px)`;
+    clearTimeout(snapT);
+    snapT = setTimeout(() => {
+      if (off > 0 && off < h) { header.classList.add("snap"); off = off > h / 2 ? h : 0; header.style.transform = `translateY(${-off}px)`; }
+    }, 120);
     lastY = y;
     progress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
     // scrollspy
@@ -200,13 +237,6 @@
     $$(".sp-tab").forEach(x => x.classList.toggle("active", x === t));
     $$(".sp-panel").forEach(p => p.classList.toggle("active", p.dataset.panel === t.dataset.tab));
   }));
-
-  /* ---------- Custom cursor ---------- */
-  const cur1 = $("#cursor"), dot = $("#cursorDot");
-  let mx = 0, my = 0, cx = 0, cy = 0;
-  addEventListener("mousemove", e => { document.body.classList.add("has-mouse"); mx = e.clientX; my = e.clientY; dot.style.transform = `translate(${mx}px,${my}px)`; });
-  (function loop() { cx += (mx - cx) * .15; cy += (my - cy) * .15; cur1.style.transform = `translate(${cx}px,${cy}px)`; requestAnimationFrame(loop); })();
-  document.addEventListener("mouseover", e => cur1.classList.toggle("is-hover", !!e.target.closest("a, button, [data-hover]")));
 
   /* ---------- Quote form → WhatsApp ---------- */
   $("#quoteForm").addEventListener("submit", e => {

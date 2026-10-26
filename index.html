@@ -31,8 +31,6 @@
     </div>
   </div>
 
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-dot" id="cursorDot"></div>
 
   <!-- ===== Header ===== -->
   <header class="header" id="header">
@@ -90,12 +88,12 @@
 
   <main id="top">
     <!-- ===== Hero ===== -->
-    <section class="hero">
+    <section class="hero" id="hero">
       <div class="hero__slides" id="heroSlides">
-        <div class="hero__slide active" data-bg="assets/img/products/azori.jpg"></div>
-        <div class="hero__slide" data-bg="assets/img/products/logan.jpg"></div>
-        <div class="hero__slide" data-bg="assets/img/products/nova.jpg"></div>
-        <div class="hero__slide" data-bg="assets/img/products/luka-corner.jpg"></div>
+        <div class="hero__slide active" data-name="Azori"><div class="hero__img" data-bg="assets/img/products/azori.jpg"></div></div>
+        <div class="hero__slide" data-name="Logan"><div class="hero__img" data-bg="assets/img/products/logan.jpg"></div></div>
+        <div class="hero__slide" data-name="Nova"><div class="hero__img" data-bg="assets/img/products/nova.jpg"></div></div>
+        <div class="hero__slide" data-name="Luka"><div class="hero__img" data-bg="assets/img/products/luka-corner.jpg"></div></div>
       </div>
       <div class="container hero__content">
         <span class="eyebrow hero__fade" data-i18n="hero.eyebrow">من تركيا إلى العالم</span>
@@ -108,18 +106,31 @@
           <div class="hero__fade">
             <p class="lead" data-i18n="hero.lead">نختار لك أفضل ما تنتجه مصانع تركيا، ونتولّى الجودة والتغليف والشحن والتخليص حتى يصل أثاثك إلى بابك في الخليج والشرق الأوسط وأوروبا.</p>
             <div class="hero__cta">
-              <a href="#collections" class="btn btn--solid" data-hover><span data-i18n="cta.explore">اكتشف المجموعات</span>
-                <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-              <a href="#contact" class="btn" data-hover><span data-i18n="cta.catalog">احصل على الكتالوج</span></a>
+              <a href="#collections" class="btn btn--solid btn--icon" data-magnetic><span data-i18n="cta.explore">اكتشف المجموعات</span><span class="btn__icon"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></span></a>
+              <a href="#contact" class="btn btn--icon" data-magnetic><span data-i18n="cta.catalog">احصل على الكتالوج</span><span class="btn__icon"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></i></span></a>
             </div>
           </div>
-          <div class="hero__meta hero__fade">
-            <div class="hero__counter"><b id="heroIdx">01</b> / 04</div>
-            <div class="hero__dots" id="heroDots"></div>
+          <div class="hero__nav hero__fade" id="heroNav">
+            <div class="hero__head">
+              <div class="hero__caption" id="heroCaption">
+                <div class="hero__num"><span id="heroNum">01</span></div>
+                <div class="hero__cap"><b id="heroName">Azori</b><small data-i18n="sp.set">طقم كنب</small></div>
+              </div>
+              <div class="hero__arrows">
+                <button id="heroPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+                <button id="heroNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+              </div>
+            </div>
+            <div class="hero__thumbs" id="heroThumbs">
+              <button class="hero__thumb active" aria-label="Azori"><img src="assets/img/products/azori.jpg" alt="" loading="lazy"><i></i></button>
+              <button class="hero__thumb" aria-label="Logan"><img src="assets/img/products/logan.jpg" alt="" loading="lazy"><i></i></button>
+              <button class="hero__thumb" aria-label="Nova"><img src="assets/img/products/nova.jpg" alt="" loading="lazy"><i></i></button>
+              <button class="hero__thumb" aria-label="Luka"><img src="assets/img/products/luka-corner.jpg" alt="" loading="lazy"><i></i></button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="scroll-cue"></div>
+      <div class="scroll-cue"><span class="scroll-cue__mouse"></span>Scroll</div>
     </section>
 
     <!-- ===== Marquee ===== -->
@@ -174,30 +185,30 @@
             <span class="eyebrow reveal" data-i18n="coll.eyebrow">المجموعات</span>
             <h2 class="h-section reveal reveal-d1" data-i18n-html="coll.title">كل غرفة تستحق <em>قطعة تركية</em></h2>
           </div>
-          <a href="#contact" class="btn reveal reveal-d2" data-hover><span data-i18n="cta.catalog">احصل على الكتالوج</span></a>
+          <a href="#contact" class="btn reveal reveal-d2"><span data-i18n="cta.catalog">احصل على الكتالوج</span></a>
         </div>
         <div class="coll-grid">
-          <a href="#contact" class="coll reveal" data-hover>
+          <a href="#contact" class="coll reveal">
             <img src="assets/img/products/logan.jpg" alt="" loading="lazy">
             <div class="coll__body"><div><span class="coll__num">01</span><h3 data-i18n="c1.t">أطقم الكنب</h3><p data-i18n="c1.d">تشكيلات عصرية وكلاسيكية بأقمشة فاخرة وألوان حسب الطلب.</p></div><span class="coll__go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
           </a>
-          <a href="#contact" class="coll reveal reveal-d1" data-hover>
+          <a href="#contact" class="coll reveal reveal-d1">
             <img src="assets/img/products/flower.jpg" alt="" loading="lazy">
             <div class="coll__body"><div><span class="coll__num">02</span><h3 data-i18n="c2.t">الكورنر</h3><p data-i18n="c2.d">زوايا مريحة بمقاسات مرنة تناسب كل مساحة.</p></div><span class="coll__go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
           </a>
-          <a href="#contact" class="coll reveal reveal-d2" data-hover>
+          <a href="#contact" class="coll reveal reveal-d2">
             <img src="assets/img/products/puzzle.jpg" alt="" loading="lazy">
             <div class="coll__body"><div><span class="coll__num">03</span><h3 data-i18n="c3.t">الكنب المودولار</h3><p data-i18n="c3.d">قطع منفصلة تُركّب كما تشاء، مثالية للمعارض والمشاريع.</p></div><span class="coll__go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
           </a>
-          <a href="#contact" class="coll reveal" data-hover>
+          <a href="#contact" class="coll reveal">
             <img src="assets/img/products/nova.jpg" alt="" loading="lazy">
             <div class="coll__body"><div><span class="coll__num">04</span><h3 data-i18n="c4.t">الفنادق والمشاريع</h3><p data-i18n="c4.d">تجهيز كامل لصالات الفنادق والشقق الفندقية والمكاتب.</p></div><span class="coll__go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
           </a>
-          <a href="#contact" class="coll reveal reveal-d1" data-hover>
+          <a href="#contact" class="coll reveal reveal-d1">
             <img src="assets/img/products/mina.jpg" alt="" loading="lazy">
             <div class="coll__body"><div><span class="coll__num">05</span><h3 data-i18n="c5.t">الفخامة الحديثة</h3><p data-i18n="c5.d">لمسات ذهبية ومخمل وتفاصيل تصنع حضوراً لافتاً.</p></div><span class="coll__go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
           </a>
-          <a href="#contact" class="coll reveal reveal-d2" data-hover>
+          <a href="#contact" class="coll reveal reveal-d2">
             <img src="assets/img/products/lara.jpg" alt="" loading="lazy">
             <div class="coll__body"><div><span class="coll__num">06</span><h3 data-i18n="c6.t">جلسات الشاي والحدائق</h3><p data-i18n="c6.d">بيرجير وكراسي وجلسات خفيفة للداخل والخارج.</p></div><span class="coll__go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
           </a>
@@ -231,7 +242,7 @@
               </div>
               <p class="sp-fabric"><span data-i18n="sp.fab">القماش</span> · Dara · Atlas</p>
               <p class="sp-note" data-i18n="sp.custom">جميع المقاسات والأقمشة والألوان قابلة للتعديل حسب الطلب.</p>
-              <a href="#contact" class="btn btn--solid" data-hover><span data-i18n="sp.ask">اسأل عن السعر</span></a>
+              <a href="#contact" class="btn btn--solid"><span data-i18n="sp.ask">اسأل عن السعر</span></a>
             </div>
           </div>
           <div class="sp-panel" data-panel="luka">
@@ -245,7 +256,7 @@
               </div>
               <p class="sp-fabric"><span data-i18n="sp.fab">القماش</span> · Troya</p>
               <p class="sp-note" data-i18n="sp.custom">جميع المقاسات والأقمشة والألوان قابلة للتعديل حسب الطلب.</p>
-              <a href="#contact" class="btn btn--solid" data-hover><span data-i18n="sp.ask">اسأل عن السعر</span></a>
+              <a href="#contact" class="btn btn--solid"><span data-i18n="sp.ask">اسأل عن السعر</span></a>
             </div>
           </div>
         </div>
@@ -348,8 +359,8 @@
         <h2 class="h-display reveal reveal-d1" data-i18n-html="cat.title">آلاف القطع من <em>عشرات المصانع</em> في كتالوج واحد</h2>
         <p class="lead reveal reveal-d2" data-i18n="cat.lead">اطلب الكتالوج الكامل بأسعار التصدير، وسيصلك خلال ساعات عبر واتساب أو البريد.</p>
         <div class="hero__cta reveal reveal-d3">
-          <a href="#contact" class="btn btn--solid" data-hover><span data-i18n="cta.catalog">احصل على الكتالوج</span></a>
-          <a href="https://wa.me/900000000000" target="_blank" rel="noopener" class="btn" data-hover><span data-i18n="cta.wa">تحدث معنا على واتساب</span></a>
+          <a href="#contact" class="btn btn--solid"><span data-i18n="cta.catalog">احصل على الكتالوج</span></a>
+          <a href="https://wa.me/900000000000" target="_blank" rel="noopener" class="btn"><span data-i18n="cta.wa">تحدث معنا على واتساب</span></a>
         </div>
       </div>
     </section>
@@ -382,8 +393,7 @@
             <label for="f-type" data-i18n="f.type">نوع الطلب</label>
           </div>
           <div class="field field--full"><textarea id="f-msg" name="msg" placeholder=" "></textarea><label for="f-msg" data-i18n="f.msg">تفاصيل الطلب (الكميات، المقاسات، موعد التسليم)</label></div>
-          <button class="btn btn--solid" type="submit" data-hover><span data-i18n="f.send">أرسل الطلب عبر واتساب</span>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <button class="btn btn--solid btn--icon" type="submit" data-magnetic><span data-i18n="f.send">أرسل الطلب عبر واتساب</span><span class="btn__icon"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></span></button>
           <p class="form__note" data-i18n="f.note">نرد على جميع الطلبات خلال 24 ساعة.</p>
         </form>
       </div>
