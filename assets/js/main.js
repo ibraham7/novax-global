@@ -46,7 +46,7 @@
     "r3.t": "North Africa", "r3.d": "Libya · Algeria · Morocco · Tunisia · Egypt",
     "r4.t": "Europe", "r4.d": "Germany · France · Netherlands · Belgium · UK",
     "show.eyebrow": "Selected", "show.title": "Designs that <em>make the difference</em>",
-    "tag.living": "Living",
+    "tag.living": "Living", "sp.hint": "Hover the dots to explore the details",
     "sp.eyebrow": "Product Spotlight", "sp.title": "Details you <em>feel</em> before you see",
     "sp.set": "Sofa Set", "sp.berg": "Bergère", "sp.three": "3-Seater", "sp.len": "Length", "sp.hei": "Height", "sp.dep": "Depth",
     "sp.fab": "Fabric", "sp.custom": "All sizes, fabrics and colours can be customised to order.", "sp.ask": "Ask for price",
@@ -104,6 +104,7 @@
     splitWords();
     syncRolls();
     try { buildMarquee(); } catch (e) { /* not built yet on first load */ }
+    try { renderSpots(); moveKnob(); } catch (e) { /* spotlight not ready yet */ }
     requestAnimationFrame(() => moveInd(activeLink));
     try { localStorage.setItem("nx-lang", lang); } catch (e) {}
   }
@@ -277,11 +278,101 @@
   addEventListener("pointerup", () => { down = false; track.classList.remove("dragging"); });
   addEventListener("pointermove", e => { if (down) track.scrollLeft = sl - (e.clientX - sx); });
 
-  /* ---------- Spotlight tabs ---------- */
-  $$(".sp-tab").forEach(t => t.addEventListener("click", () => {
-    $$(".sp-tab").forEach(x => x.classList.toggle("active", x === t));
-    $$(".sp-panel").forEach(p => p.classList.toggle("active", p.dataset.panel === t.dataset.tab));
+  /* ---------- Product spotlight ---------- */
+  const PRODUCTS = {
+    azori: {
+      name: "Azori", fabric: "Dara · Atlas", swatches: ["#d9ccb7", "#7b6466", "#c19a5b"],
+      pieces: { three: [225, 100, 85], berg: [95, 100, 85] },
+      spots: [
+        { x: 40, y: 20, ar: ["القماش", "بوكليه ناعم بملمس دافئ"], en: ["Fabric", "Soft, warm-touch bouclé"] },
+        { x: 33, y: 39, ar: ["التنجيد", "مخمل مضلّع بخياطة يدوية"], en: ["Upholstery", "Hand-stitched pleated velvet"] },
+        { x: 39, y: 49, ar: ["القاعدة", "إطار ستانلس بلون ذهبي"], en: ["Base", "Gold-finish stainless frame"] },
+        { x: 50, y: 38, ar: ["الطاولات", "سطح رخامي وأرجل مضلّعة"], en: ["Tables", "Marble tops, fluted bases"] },
+        { x: 70, y: 27, ar: ["البيرجير", "بنفس التصميم والقماش"], en: ["Bergère", "Same design and fabric"] }
+      ]
+    },
+    luka: {
+      name: "Yeni Luka", fabric: "Troya", swatches: ["#e7dbc8", "#7a5a45", "#b08a6a"],
+      pieces: { three: [230, 80, 100], berg: [115, 95, 90] },
+      spots: [
+        { x: 43, y: 46, ar: ["القماش", "Troya بملمس ناعم"], en: ["Fabric", "Soft-touch Troya"] },
+        { x: 30, y: 55, ar: ["القاعدة", "ملفوفة بقماش متباين"], en: ["Base", "Wrapped in a contrast fabric"] },
+        { x: 54, y: 58, ar: ["الأرجل", "خشب طبيعي متين"], en: ["Legs", "Solid natural wood"] },
+        { x: 70, y: 55, ar: ["البيرجير", "طاولة جانبية مدمجة"], en: ["Bergère", "Built-in side table"] }
+      ]
+    }
+  };
+  const SHAPES = {
+    three: "M30 92 V58 Q30 40 48 40 H272 Q290 40 290 58 V92 M20 92 H300 V80 Q300 70 290 70 M20 92 V80 Q20 70 30 70 M60 92 V100 M260 92 V100 M48 40 Q160 30 272 40",
+    berg: "M105 92 V52 Q105 34 125 34 H195 Q215 34 215 52 V92 M95 92 H225 V78 Q225 68 215 68 M95 92 V78 Q95 68 105 68 M120 92 V100 M200 92 V100"
+  };
+  let spCur = "azori", spPiece = "three";
+  const spKnob = $("#spKnob"), spDraw = $("#spDraw");
+  function moveKnob() {
+    const b = $(`.sp-switch__btn[data-product="${spCur}"]`);
+    spKnob.style.left = b.offsetLeft + "px"; spKnob.style.width = b.offsetWidth + "px";
+  }
+  function renderSpots() {
+    const en = document.documentElement.lang === "en", box = $("#spSpots");
+    box.classList.remove("show");
+    box.innerHTML = PRODUCTS[spCur].spots.map((p, i) => {
+      const [t, d] = en ? p.en : p.ar;
+      return `<button class="spot${p.y < 30 ? " low" : ""}" style="--x:${p.x}%;--y:${p.y}%;--i:${i}" aria-label="${t}"><span class="spot__tip"><b>${t}</b>${d}</span></button>`;
+    }).join("");
+    placeSpots();
+    requestAnimationFrame(() => requestAnimationFrame(() => box.classList.add("show")));
+    $$(".spot", box).forEach(s => s.addEventListener("click", () => { const o = s.classList.contains("open"); $$(".spot", box).forEach(x => x.classList.remove("open")); s.classList.toggle("open", !o); }));
+  }
+  // map image-relative hotspot coordinates onto the object-fit: cover box
+  function placeSpots() {
+    const box = $("#spSpots"), W = box.offsetWidth, H = box.offsetHeight, IW = 1800, IH = 997;
+    const k = Math.max(W / IW, H / IH), ox = (W - IW * k) / 2, oy = (H - IH * k) / 2;
+    $$(".spot", box).forEach((el, i) => {
+      const p = PRODUCTS[spCur].spots[i];
+      const x = ox + p.x / 100 * IW * k, y = oy + p.y / 100 * IH * k;
+      el.style.setProperty("--px", x.toFixed(1) + "px");
+      el.style.setProperty("--py", y.toFixed(1) + "px");
+      el.hidden = x < 24 || x > W - 24 || y < 24 || y > H - 24; // cropped out of view
+    });
+  }
+  function renderDims() {
+    const d = PRODUCTS[spCur].pieces[spPiece];
+    $$("[data-dim]").forEach(el => {
+      const i = +el.dataset.dim, from = +el.textContent || 0, to = d[i], t0 = performance.now();
+      const tick = t => { const p = Math.min((t - t0) / 900, 1); el.textContent = Math.round(from + (to - from) * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick);
+    });
+    $$("[data-bar]").forEach(el => el.style.width = (d[+el.dataset.bar] / 240 * 100).toFixed(1) + "%");
+    $("#spShape").setAttribute("d", SHAPES[spPiece]);
+    spDraw.classList.remove("go"); void spDraw.offsetWidth; spDraw.classList.add("go");
+  }
+  function renderProduct(first) {
+    const p = PRODUCTS[spCur];
+    $("#spSwatches").innerHTML = p.swatches.map(c => `<i style="background:${c}"></i>`).join("");
+    $("#spFabric").textContent = p.fabric;
+    const nameBox = $("#spName").parentElement;
+    if (first) $("#spName").textContent = p.name;
+    else { nameBox.classList.add("swap"); setTimeout(() => { $("#spName").textContent = p.name; nameBox.classList.remove("swap"); }, 350); }
+    renderSpots(); renderDims(); moveKnob();
+  }
+  $$(".sp-switch__btn").forEach(b => b.addEventListener("click", () => {
+    if (b.dataset.product === spCur) return;
+    const prev = $(`.sp-img[data-product="${spCur}"]`), next = $(`.sp-img[data-product="${b.dataset.product}"]`);
+    prev.classList.remove("active"); prev.classList.add("leaving"); next.classList.add("active");
+    setTimeout(() => prev.classList.remove("leaving"), 1250);
+    $$(".sp-switch__btn").forEach(x => x.classList.toggle("active", x === b));
+    spCur = b.dataset.product; renderProduct();
   }));
+  $$(".sp-piece").forEach(b => b.addEventListener("click", () => {
+    if (b.dataset.piece === spPiece) return;
+    $$(".sp-piece").forEach(x => x.classList.toggle("active", x === b));
+    spPiece = b.dataset.piece; renderDims();
+  }));
+  // start the drawing/bars when the card scrolls into view
+  const spIo = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { renderProduct(true); spIo.disconnect(); } }), { threshold: .25 });
+  spIo.observe($(".sp-card"));
+  addEventListener("resize", () => { moveKnob(); placeSpots(); });
+  requestAnimationFrame(moveKnob);
 
   /* ---------- Quote form → WhatsApp ---------- */
   $("#quoteForm").addEventListener("submit", e => {

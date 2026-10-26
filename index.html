@@ -216,40 +216,52 @@
         <div class="section-head">
           <div>
             <span class="eyebrow reveal" data-i18n="sp.eyebrow">منتج مميز</span>
-            <h2 class="h-section reveal reveal-d1" data-i18n-html="sp.title">تفاصيل <em>تحسّها</em> قبل ما تشوفها</h2>
+            <h2 class="h-section" data-split data-i18n-html="sp.title">تفاصيل <em>تحسّها</em> قبل ما تشوفها</h2>
           </div>
-          <div class="sp-tabs reveal reveal-d2">
-            <button class="sp-tab active" data-tab="azori">Azori</button>
-            <button class="sp-tab" data-tab="luka">Yeni Luka</button>
+          <div class="sp-switch reveal reveal-d2" role="tablist">
+            <span class="sp-switch__knob" id="spKnob"></span>
+            <button class="sp-switch__btn active" data-product="azori" role="tab"><img src="assets/img/products/azori.jpg" alt="">Azori</button>
+            <button class="sp-switch__btn" data-product="luka" role="tab"><img src="assets/img/products/yeni-luka.jpg" alt="">Yeni Luka</button>
           </div>
         </div>
-        <div class="sp-stage reveal">
-          <div class="sp-panel active" data-panel="azori">
-            <div class="sp-media"><img src="assets/img/products/azori.jpg" alt="Azori" loading="lazy"></div>
-            <div class="sp-info">
-              <h3 class="sp-name">Azori</h3>
-              <span class="sp-kind" data-i18n="sp.set">طقم كنب</span>
-              <div class="sp-dims">
-                <div><h5 data-i18n="sp.berg">بيرجير</h5><ul><li><span data-i18n="sp.len">الطول</span><b>95 cm</b></li><li><span data-i18n="sp.hei">الارتفاع</span><b>100 cm</b></li><li><span data-i18n="sp.dep">العمق</span><b>85 cm</b></li></ul></div>
-                <div><h5 data-i18n="sp.three">كنبة ثلاثية</h5><ul><li><span data-i18n="sp.len">الطول</span><b>225 cm</b></li><li><span data-i18n="sp.hei">الارتفاع</span><b>100 cm</b></li><li><span data-i18n="sp.dep">العمق</span><b>85 cm</b></li></ul></div>
-              </div>
-              <p class="sp-fabric"><span data-i18n="sp.fab">القماش</span> · Dara · Atlas</p>
-              <p class="sp-note" data-i18n="sp.custom">جميع المقاسات والأقمشة والألوان قابلة للتعديل حسب الطلب.</p>
-              <a href="#contact" class="btn btn--solid"><span data-i18n="sp.ask">اسأل عن السعر</span></a>
-            </div>
+
+        <div class="sp-stage">
+          <div class="sp-visual reveal">
+            <div class="sp-img active" data-product="azori"><img src="assets/img/products/azori.jpg" alt="Azori"></div>
+            <div class="sp-img" data-product="luka"><img src="assets/img/products/yeni-luka.jpg" alt="Yeni Luka"></div>
+            <div class="sp-spots" id="spSpots"></div>
+            <span class="sp-hint"><i></i><span data-i18n="sp.hint">مرّر على النقاط لتكتشف التفاصيل</span></span>
+            <span class="sp-year">2026</span>
           </div>
-          <div class="sp-panel" data-panel="luka">
-            <div class="sp-media"><img src="assets/img/products/yeni-luka.jpg" alt="Yeni Luka" loading="lazy"></div>
-            <div class="sp-info">
-              <h3 class="sp-name">Yeni Luka</h3>
-              <span class="sp-kind" data-i18n="sp.set">طقم كنب</span>
-              <div class="sp-dims">
-                <div><h5 data-i18n="sp.berg">بيرجير</h5><ul><li><span data-i18n="sp.len">الطول</span><b>115 cm</b></li><li><span data-i18n="sp.hei">الارتفاع</span><b>95 cm</b></li><li><span data-i18n="sp.dep">العمق</span><b>90 cm</b></li></ul></div>
-                <div><h5 data-i18n="sp.three">كنبة ثلاثية</h5><ul><li><span data-i18n="sp.len">الطول</span><b>230 cm</b></li><li><span data-i18n="sp.hei">الارتفاع</span><b>80 cm</b></li><li><span data-i18n="sp.dep">العمق</span><b>100 cm</b></li></ul></div>
-              </div>
-              <p class="sp-fabric"><span data-i18n="sp.fab">القماش</span> · Troya</p>
-              <p class="sp-note" data-i18n="sp.custom">جميع المقاسات والأقمشة والألوان قابلة للتعديل حسب الطلب.</p>
-              <a href="#contact" class="btn btn--solid"><span data-i18n="sp.ask">اسأل عن السعر</span></a>
+
+          <div class="sp-card reveal reveal-d1">
+            <span class="sp-kind" data-i18n="sp.set">طقم كنب</span>
+            <h3 class="sp-name"><span id="spName">Azori</span></h3>
+
+            <div class="sp-pieces" role="tablist">
+              <button class="sp-piece active" data-piece="three" data-i18n="sp.three">كنبة ثلاثية</button>
+              <button class="sp-piece" data-piece="berg" data-i18n="sp.berg">بيرجير</button>
+            </div>
+
+            <svg class="sp-draw" id="spDraw" viewBox="0 0 320 120" aria-hidden="true">
+              <path class="sp-draw__shape" id="spShape" pathLength="1" d=""/>
+              <path class="sp-draw__dim" pathLength="1" d="M20 108 H300"/>
+              <path class="sp-draw__tick" d="M20 102 V114 M300 102 V114"/>
+            </svg>
+
+            <div class="sp-dims">
+              <div class="sp-dim"><span data-i18n="sp.len">الطول</span><b><em data-dim="0">225</em> cm</b><i><s data-bar="0"></s></i></div>
+              <div class="sp-dim"><span data-i18n="sp.hei">الارتفاع</span><b><em data-dim="1">100</em> cm</b><i><s data-bar="1"></s></i></div>
+              <div class="sp-dim"><span data-i18n="sp.dep">العمق</span><b><em data-dim="2">85</em> cm</b><i><s data-bar="2"></s></i></div>
+            </div>
+
+            <div class="sp-fabric">
+              <span class="sp-swatches" id="spSwatches"></span>
+              <span><small data-i18n="sp.fab">القماش</small><b id="spFabric">Dara · Atlas</b></span>
+            </div>
+            <p class="sp-note" data-i18n="sp.custom">جميع المقاسات والأقمشة والألوان قابلة للتعديل حسب الطلب.</p>
+            <div class="sp-actions">
+              <a href="#contact" class="btn btn--solid btn--icon" data-magnetic><span data-i18n="sp.ask">اسأل عن السعر</span><span class="btn__icon"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></span></a>
             </div>
           </div>
         </div>
@@ -260,10 +272,22 @@
          TODO: استبدل الأرقام بأرقام الشركة الحقيقية قبل النشر -->
     <section class="stats">
       <div class="container stats__grid">
-        <div class="stat"><div class="stat__num"><span data-count="25">0</span>+</div><div class="stat__label" data-i18n="s1">دولة نصدّر إليها</div></div>
-        <div class="stat"><div class="stat__num"><span data-count="60">0</span>+</div><div class="stat__label" data-i18n="s2">مصنع شريك</div></div>
-        <div class="stat"><div class="stat__num"><span data-count="1500">0</span>+</div><div class="stat__label" data-i18n="s3">حاوية تم شحنها</div></div>
-        <div class="stat"><div class="stat__num"><span data-count="10">0</span>+</div><div class="stat__label" data-i18n="s4">سنوات خبرة</div></div>
+        <div class="stat reveal">
+          <span class="stat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg></span>
+          <div class="stat__num"><span data-count="25">0</span><sup>+</sup></div><div class="stat__label" data-i18n="s1">دولة نصدّر إليها</div>
+        </div>
+        <div class="stat reveal reveal-d1">
+          <span class="stat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 21V9l6-4v4l6-4v4l6-4v16H3z"/></svg></span>
+          <div class="stat__num"><span data-count="60">0</span><sup>+</sup></div><div class="stat__label" data-i18n="s2">مصنع شريك</div>
+        </div>
+        <div class="stat reveal reveal-d2">
+          <span class="stat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="7" width="18" height="11" rx="1"/><path d="M7 7v11M11 7v11M15 7v11M19 7v11"/></svg></span>
+          <div class="stat__num"><span data-count="1500">0</span><sup>+</sup></div><div class="stat__label" data-i18n="s3">حاوية تم شحنها</div>
+        </div>
+        <div class="stat reveal reveal-d3">
+          <span class="stat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+          <div class="stat__num"><span data-count="10">0</span><sup>+</sup></div><div class="stat__label" data-i18n="s4">سنوات خبرة</div>
+        </div>
       </div>
     </section>
 
