@@ -1,5 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-  <!-- شعار مؤقت — يُستبدل بلوجو الشركة الرسمي -->
-  <path d="M32 3 L59 18 V46 L32 61 L5 46 V18 Z"/>
-  <path d="M20 44 V20 L44 44 V20"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- NovaX mark, redrawn from the company logo. Replace with the original file when available. -->
+  <rect width="128" height="128" rx="26" fill="#0d0d0b"/>
+  <g transform="translate(13.6 20.8) scale(.9)" fill="none" stroke="#c19a5b" stroke-width="6.4" stroke-linejoin="miter" stroke-miterlimit="10">
+    <path d="M7.5 40 V10.8 L40 43"/>
+    <path d="M7.5 56 V85.2 L48 43"/>
+    <path d="M24 8 L58 42"/>
+    <path d="M24 88 L49 62"/>
+    <path d="M56 33 L76 9 H101 V33"/>
+    <path d="M98 12 L57 53"/>
+    <path d="M43 52 L76 85.5 H101 V63"/>
+    <path d="M68 51 L99 83"/>
+  </g>
 </svg>

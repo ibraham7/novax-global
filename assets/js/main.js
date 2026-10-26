@@ -126,18 +126,25 @@
   try { const saved = localStorage.getItem("nx-lang"); if (saved && saved !== "ar") setLang(saved); } catch (e) {}
 
   /* ---------- Preloader ---------- */
-  const name = $("#loaderName");
-  name.innerHTML = [..."NOVAX"].map((c, i) => `<span style="animation-delay:${.35 + i * .08}s">${c}</span>`).join("");
-  const loader = $("#loader");
+  $("#loaderWord").innerHTML = [..."NOVAX"].map((c, i) => `<span style="animation-delay:${1.05 + i * .09}s">${c}</span>`).join("");
+  const loader = $("#loader"), loaderNum = $("#loaderNum"), loaderLine = $("#loaderLine");
+  const LOAD_MS = 3200, tStart = performance.now();
+  (function count(now) {
+    const p = Math.min((now - tStart) / LOAD_MS, 1), e = 1 - Math.pow(1 - p, 3);
+    loaderNum.textContent = String(Math.round(e * 100)).padStart(3, "0");
+    loaderLine.style.setProperty("--p", e.toFixed(3));
+    if (p < 1 && !loader.classList.contains("done")) requestAnimationFrame(count);
+  })(tStart);
   const finish = () => {
+    loaderNum.textContent = "100"; loaderLine.style.setProperty("--p", 1);
     loader.classList.add("done");
     document.body.classList.remove("is-loading");
-    setTimeout(() => document.body.classList.add("ready"), 500);
-    setTimeout(() => loader.classList.add("gone"), 1600);
+    setTimeout(() => document.body.classList.add("ready"), 650);
+    setTimeout(() => loader.classList.add("gone"), 2000);
   };
-  const minTime = new Promise(r => setTimeout(r, 2400));
+  const minTime = new Promise(r => setTimeout(r, LOAD_MS + 150));
   const loaded = new Promise(r => document.readyState === "complete" ? r() : addEventListener("load", r));
-  Promise.race([Promise.all([minTime, loaded]), new Promise(r => setTimeout(r, 5000))]).then(finish);
+  Promise.race([Promise.all([minTime, loaded]), new Promise(r => setTimeout(r, 6000))]).then(finish);
 
   /* ---------- Background images with fallback ---------- */
   $$("[data-bg]").forEach(el => {
