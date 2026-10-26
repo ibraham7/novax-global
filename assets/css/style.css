@@ -887,7 +887,7 @@ html[dir="rtl"] .cflow__progress i { transform-origin: right; }
 .book__title b { font-family: "Cormorant Garamond", serif; font-weight: 400; font-size: 58px; line-height: .9; color: var(--gold-2); }
 .book { left: 0; transition: transform 1s var(--ease-out), left 1.2s var(--ease-out); }
 .book-wrap:hover .book, .book-wrap.open .book { --ry: -8deg; --rx: 4deg; left: 18%; }
-.book-wrap:hover .book__cover, .book-wrap.open .book__cover { transform: rotateY(-155deg); }
+.book-wrap:hover .book__cover, .book-wrap.open .book__cover { transform: rotateY(-118deg); }
 .book__shadow { position: absolute; bottom: 30px; width: 60%; height: 30px; border-radius: 50%; background: radial-gradient(ellipse, rgba(0,0,0,.6), transparent 70%); filter: blur(6px); animation: shadowPulse 6s ease-in-out infinite; }
 @keyframes shadowPulse { 50% { transform: scaleX(.85); opacity: .7; } }
 .book__hint { position: absolute; bottom: 0; font-size: 12.5px; color: var(--muted); }
