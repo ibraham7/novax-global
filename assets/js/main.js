@@ -6,6 +6,7 @@
 
   /* ---------- i18n ---------- */
   const EN = {
+    "mk.label": "Export destinations",
     "top.msg": "Direct from Türkiye's factories to the Gulf, the Middle East and Europe",
     "nav.about": "About", "nav.collections": "Collections", "nav.process": "Export Process",
     "nav.regions": "Markets", "nav.contact": "Contact",
@@ -78,6 +79,7 @@
     $$("[data-i18n-html]").forEach(el => { const v = dict[el.dataset.i18nHtml]; if (v) el.innerHTML = v; });
     $$(".lang button").forEach(b => b.classList.toggle("active", b.dataset.lang === lang));
     syncRolls();
+    try { buildMarquee(); } catch (e) { /* not built yet on first load */ }
     requestAnimationFrame(() => moveInd(activeLink));
     try { localStorage.setItem("nx-lang", lang); } catch (e) {}
   }
@@ -107,10 +109,8 @@
   $$("img").forEach(img => img.addEventListener("error", () => img.style.visibility = "hidden"));
 
   /* ---------- Hero slider ---------- */
-  const hero = $("#hero"), slides = $$(".hero__slide"), thumbs = $$(".hero__thumb");
-  const caption = $("#heroCaption"), numEl = $("#heroNum"), nameEl = $("#heroName");
+  const hero = $("#hero"), slides = $$(".hero__slide");
   const DUR = 7000; let cur = 0, timer, busy = false;
-  hero.style.setProperty("--dur", DUR + "ms");
   function go(i) {
     i = (i + slides.length) % slides.length;
     if (i === cur || busy) return;
@@ -118,25 +118,13 @@
     const prev = slides[cur], next = slides[i];
     prev.classList.remove("active"); prev.classList.add("leaving");
     next.classList.add("active");
-    thumbs.forEach((t, k) => t.classList.toggle("active", k === i));
-    const th = thumbs[i].querySelector("i"); th.style.display = "none"; void th.offsetWidth; th.style.display = "";
-    caption.classList.add("swap");
-    setTimeout(() => {
-      numEl.textContent = String(i + 1).padStart(2, "0");
-      nameEl.textContent = next.dataset.name;
-      caption.classList.remove("swap");
-    }, 380);
     cur = i;
     setTimeout(() => { prev.classList.remove("leaving"); busy = false; }, 1650);
     schedule();
   }
   function schedule() { clearTimeout(timer); timer = setTimeout(() => go(cur + 1), DUR); }
-  thumbs.forEach((t, i) => t.addEventListener("click", () => go(i)));
-  const rtl = () => document.documentElement.dir === "rtl";
-  $("#heroNext").onclick = () => go(cur + 1);
-  $("#heroPrev").onclick = () => go(cur - 1);
   schedule();
-  // swipe on touch
+  const rtl = () => document.documentElement.dir === "rtl";
   let tx = null;
   hero.addEventListener("touchstart", e => tx = e.touches[0].clientX, { passive: true });
   hero.addEventListener("touchend", e => {
@@ -152,7 +140,20 @@
   hero.addEventListener("mouseleave", () => { hero.style.setProperty("--mx", 0); hero.style.setProperty("--my", 0); });
 
   /* ---------- Marquee (duplicate for seamless loop) ---------- */
-  const mq = $("#marquee"); mq.innerHTML += mq.innerHTML;
+  const COUNTRIES = [
+    ["SA", "السعودية", "Saudi Arabia"], ["AE", "الإمارات", "UAE"], ["QA", "قطر", "Qatar"], ["KW", "الكويت", "Kuwait"],
+    ["OM", "عُمان", "Oman"], ["BH", "البحرين", "Bahrain"], ["IQ", "العراق", "Iraq"], ["JO", "الأردن", "Jordan"],
+    ["LB", "لبنان", "Lebanon"], ["LY", "ليبيا", "Libya"], ["DZ", "الجزائر", "Algeria"], ["MA", "المغرب", "Morocco"],
+    ["DE", "ألمانيا", "Germany"], ["FR", "فرنسا", "France"], ["NL", "هولندا", "Netherlands"], ["GB", "بريطانيا", "United Kingdom"]
+  ];
+  const mq = $("#marquee");
+  function buildMarquee() {
+    const en = document.documentElement.lang === "en";
+    const items = COUNTRIES.map(([c, ar, e]) => `<span class="mk"><span class="mk__code">${c}</span>${en ? e : ar}</span>`).join("");
+    mq.innerHTML = items + items;
+    requestAnimationFrame(() => mq.style.setProperty("--mq-dur", (mq.scrollWidth / 2 / 35).toFixed(1) + "s"));
+  }
+  buildMarquee();
 
   /* ---------- Header ---------- */
   const header = $("#header"), progress = $("#progress"); let lastY = scrollY, off = 0, snapT;
