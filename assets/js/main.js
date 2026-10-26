@@ -55,7 +55,9 @@
     "sp.eyebrow": "Product Spotlight", "sp.title": "Details you <em>feel</em> before you see",
     "sp.set": "Sofa Set", "sp.berg": "Bergère", "sp.three": "3-Seater", "sp.len": "Length", "sp.hei": "Height", "sp.dep": "Depth",
     "sp.fab": "Fabric", "sp.custom": "All sizes, fabrics and colours can be customised to order.", "sp.ask": "Ask for price",
-    "cat.eyebrow": "Catalog 2026", "cat.title": "Thousands of pieces from <em>dozens of factories</em> in one catalog",
+    "cat.eyebrow": "Catalog 2026", "cat.title": "All our collections in <em>one catalog</em>",
+    "cat.f1": "Up-to-date export prices", "cat.f2": "Dimensions for every piece", "cat.f3": "Available fabric colours", "cat.f4": "Shipping and delivery terms",
+    "cat.note": "We send the catalog on WhatsApp. No spam.", "cat.hint": "Hover to open the catalog",
     "cat.lead": "Request the full catalog with export pricing — delivered within hours by WhatsApp or email.",
     "ct.eyebrow": "Contact", "ct.title": "Let's start <em>your next project</em>",
     "ct.wa": "WhatsApp", "ct.mail": "Email", "ct.addr": "Head Office", "ct.addrv": "Istanbul, Türkiye",
@@ -217,8 +219,6 @@
     let cur = null;
     sections.forEach((sec, i) => { if (sec.getBoundingClientRect().top < innerHeight * .4) cur = navLinks[i]; });
     if (cur !== activeLink) { activeLink = cur; navLinks.forEach(a => a.classList.toggle("active", a === cur)); if (!$("#nav:hover")) moveInd(cur); }
-    const bg = $("#catalogBg");
-    if (bg) { const r = bg.parentElement.getBoundingClientRect(); bg.style.transform = `translateY(${r.top * -0.15}px)`; }
   }, { passive: true });
 
   /* ---------- Magnetic buttons ---------- */
@@ -647,6 +647,23 @@
   spIo.observe($(".sp-card"));
   addEventListener("resize", () => { moveKnob(); placeSpots(); });
   requestAnimationFrame(moveKnob);
+
+  /* ---------- Catalog book + quick request ---------- */
+  const bookWrap = $("#bookWrap"), book = $("#book");
+  bookWrap.addEventListener("mousemove", e => {
+    if (bookWrap.matches(":hover") && bookWrap.classList.contains("open")) return;
+    const r = bookWrap.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    book.style.setProperty("--ry", (-8 + x * 16).toFixed(1) + "deg");
+    book.style.setProperty("--rx", (4 - y * 10).toFixed(1) + "deg");
+  });
+  bookWrap.addEventListener("mouseleave", () => { book.style.removeProperty("--ry"); book.style.removeProperty("--rx"); });
+  bookWrap.addEventListener("click", () => bookWrap.classList.toggle("open"));
+  $("#catForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const phone = $("#catPhone").value.trim();
+    const msg = `NovaX Global — please send me the 2026 catalog.\nMy WhatsApp: ${phone}`;
+    window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
+  });
 
   /* ---------- Quote form → WhatsApp ---------- */
   $("#quoteForm").addEventListener("submit", e => {

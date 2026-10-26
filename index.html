@@ -462,15 +462,56 @@
     </section>
 
     <!-- ===== Catalog CTA ===== -->
-    <section class="catalog">
-      <div class="catalog__bg" id="catalogBg" data-bg="assets/img/products/hamster.jpg"></div>
+    <section class="catalog" id="catalog">
       <div class="container">
-        <span class="eyebrow reveal" data-i18n="cat.eyebrow">كتالوج 2026</span>
-        <h2 class="h-display reveal reveal-d1" data-i18n-html="cat.title">آلاف القطع من <em>عشرات المصانع</em> في كتالوج واحد</h2>
-        <p class="lead reveal reveal-d2" data-i18n="cat.lead">اطلب الكتالوج الكامل بأسعار التصدير، وسيصلك خلال ساعات عبر واتساب أو البريد.</p>
-        <div class="hero__cta reveal reveal-d3">
-          <a href="#contact" class="btn btn--solid"><span data-i18n="cta.catalog">احصل على الكتالوج</span></a>
-          <a href="https://wa.me/900000000000" target="_blank" rel="noopener" class="btn"><span data-i18n="cta.wa">تحدث معنا على واتساب</span></a>
+        <div class="catalog__panel reveal">
+          <div class="catalog__shine" aria-hidden="true"></div>
+          <div class="catalog__text">
+            <span class="eyebrow" data-i18n="cat.eyebrow">كتالوج 2026</span>
+            <h2 class="h-section" data-split data-i18n-html="cat.title">كل مجموعاتنا في <em>كتالوج واحد</em></h2>
+            <p class="lead" data-i18n="cat.lead">اطلب الكتالوج الكامل بأسعار التصدير، وسيصلك خلال ساعات عبر واتساب أو البريد.</p>
+            <ul class="catalog__list">
+              <li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><b data-i18n="cat.f1">أسعار تصدير محدّثة</b></li>
+              <li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><b data-i18n="cat.f2">مقاسات كل قطعة</b></li>
+              <li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><b data-i18n="cat.f3">ألوان الأقمشة المتوفرة</b></li>
+              <li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><b data-i18n="cat.f4">شروط الشحن والتسليم</b></li>
+            </ul>
+            <form class="catalog__form" id="catForm">
+              <label class="catalog__field">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2z"/></svg>
+                <input id="catPhone" name="phone" type="tel" dir="ltr" required placeholder="+966 5x xxx xxxx" aria-label="WhatsApp">
+              </label>
+              <button class="btn btn--solid btn--icon" type="submit" data-magnetic><span data-i18n="cta.catalog">احصل على الكتالوج</span><span class="btn__icon"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></i></span></button>
+            </form>
+            <p class="catalog__note" data-i18n="cat.note">نرسل الكتالوج على واتساب. لا رسائل مزعجة.</p>
+          </div>
+
+          <div class="book-wrap" id="bookWrap" aria-hidden="true">
+            <div class="book" id="book">
+              <div class="book__page book__page--3"></div>
+              <div class="book__page book__page--2"></div>
+              <div class="book__inside">
+                <div class="book__grid">
+                  <img src="assets/img/products/logan.jpg" alt=""><img src="assets/img/products/mina.jpg" alt="">
+                  <img src="assets/img/products/flower.jpg" alt=""><img src="assets/img/products/nova.jpg" alt="">
+                </div>
+                <span class="book__inside-label">COLLECTION · 2026</span>
+              </div>
+              <div class="book__cover">
+                <div class="book__cover-front">
+                  <img src="assets/img/products/azori.jpg" alt="">
+                  <div class="book__brand">
+                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 3 L59 18 V46 L32 61 L5 46 V18 Z"/><path d="M20 44 V20 L44 44 V20"/></svg>
+                    <b>NOVAX</b><small>Global Furniture</small>
+                  </div>
+                  <div class="book__title"><span>Collection</span><b>2026</b></div>
+                </div>
+                <div class="book__cover-back"></div>
+              </div>
+            </div>
+            <div class="book__shadow"></div>
+            <span class="book__hint" data-i18n="cat.hint">مرّر لفتح الكتالوج</span>
+          </div>
         </div>
       </div>
     </section>
