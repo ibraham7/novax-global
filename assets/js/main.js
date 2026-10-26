@@ -21,12 +21,12 @@
     "p3.t": "Shipping & Customs", "p3.d": "Sea and land freight to your warehouse.",
     "p4.t": "Made to Order", "p4.d": "Your sizes, fabrics and finishes.",
     "coll.eyebrow": "Collections", "coll.title": "Every room deserves <em>a Turkish piece</em>",
-    "c1.t": "Living Rooms", "c1.d": "Sofas, corner sets, coffee tables and TV units.",
-    "c2.t": "Bedrooms", "c2.d": "Beds, wardrobes, dressers and kids' rooms.",
-    "c3.t": "Dining Rooms", "c3.d": "Tables, chairs, sideboards and vitrines.",
-    "c4.t": "Hotels & Projects", "c4.d": "Full fit-out for hotels, serviced apartments and restaurants.",
-    "c5.t": "Offices", "c5.d": "Executive desks, meeting rooms and workspaces.",
-    "c6.t": "Outdoor", "c6.d": "Sun- and humidity-resistant outdoor lounges.",
+    "c1.t": "Sofa Sets", "c1.d": "Modern and classic sets in premium fabrics and custom colours.",
+    "c2.t": "Corner Sofas", "c2.d": "Comfortable corners in flexible sizes for any space.",
+    "c3.t": "Modular Sofas", "c3.d": "Separate pieces arranged your way — ideal for showrooms and projects.",
+    "c4.t": "Hotels & Projects", "c4.d": "Full fit-out for hotel lounges, serviced apartments and offices.",
+    "c5.t": "Modern Luxury", "c5.d": "Gold accents, velvet and details that make a statement.",
+    "c6.t": "Tea & Garden Sets", "c6.d": "Bergères, chairs and light sets for indoors and out.",
     "s1": "Export Countries", "s2": "Partner Factories", "s3": "Containers Shipped", "s4": "Years of Experience",
     "proc.eyebrow": "Export Process", "proc.title": "From your idea to <em>your warehouse</em> in six steps",
     "proc.lead": "One team with you from the first message to the last delivered piece — in your language, fully transparent.",
@@ -42,7 +42,10 @@
     "r3.t": "North Africa", "r3.d": "Libya · Algeria · Morocco · Tunisia · Egypt",
     "r4.t": "Europe", "r4.d": "Germany · France · Netherlands · Belgium · UK",
     "show.eyebrow": "Selected", "show.title": "Designs that <em>make the difference</em>",
-    "tag.living": "Living", "tag.bed": "Bedroom", "tag.dining": "Dining", "tag.accent": "Accent",
+    "tag.living": "Living",
+    "sp.eyebrow": "Product Spotlight", "sp.title": "Details you <em>feel</em> before you see",
+    "sp.set": "Sofa Set", "sp.berg": "Bergère", "sp.three": "3-Seater", "sp.len": "Length", "sp.hei": "Height", "sp.dep": "Depth",
+    "sp.fab": "Fabric", "sp.custom": "All sizes, fabrics and colours can be customised to order.", "sp.ask": "Ask for price",
     "cat.eyebrow": "Catalog 2026", "cat.title": "Thousands of pieces from <em>dozens of factories</em> in one catalog",
     "cat.lead": "Request the full catalog with export pricing — delivered within hours by WhatsApp or email.",
     "ct.eyebrow": "Contact", "ct.title": "Let's start <em>your next project</em>",
@@ -160,6 +163,12 @@
   track.addEventListener("pointerdown", e => { if (e.pointerType !== "mouse") return; down = true; sx = e.clientX; sl = track.scrollLeft; track.classList.add("dragging"); });
   addEventListener("pointerup", () => { down = false; track.classList.remove("dragging"); });
   addEventListener("pointermove", e => { if (down) track.scrollLeft = sl - (e.clientX - sx); });
+
+  /* ---------- Spotlight tabs ---------- */
+  $$(".sp-tab").forEach(t => t.addEventListener("click", () => {
+    $$(".sp-tab").forEach(x => x.classList.toggle("active", x === t));
+    $$(".sp-panel").forEach(p => p.classList.toggle("active", p.dataset.panel === t.dataset.tab));
+  }));
 
   /* ---------- Custom cursor ---------- */
   const cur1 = $("#cursor"), dot = $("#cursorDot");
