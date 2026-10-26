@@ -25,6 +25,8 @@
     "p3.t": "Shipping & Customs", "p3.d": "Sea and land freight to your warehouse.",
     "p4.t": "Made to Order", "p4.d": "Your sizes, fabrics and finishes.",
     "coll.eyebrow": "Collections", "coll.title": "Every room deserves <em>a Turkish piece</em>",
+    "coll.hint": "Hover a collection to open it", "coll.models": "models", "coll.model": "model",
+    "proc.now": "Current stage", "proc.cta": "Start your project",
     "c1.t": "Sofa Sets", "c1.d": "Modern and classic sets in premium fabrics and custom colours.",
     "c2.t": "Corner Sofas", "c2.d": "Comfortable corners in flexible sizes for any space.",
     "c3.t": "Modular Sofas", "c3.d": "Separate pieces arranged your way — ideal for showrooms and projects.",
@@ -105,6 +107,7 @@
     syncRolls();
     try { buildMarquee(); } catch (e) { /* not built yet on first load */ }
     try { renderSpots(); moveKnob(); } catch (e) { /* spotlight not ready yet */ }
+    try { pCurrent = -2; processScroll(); } catch (e) { /* timeline not ready yet */ }
     requestAnimationFrame(() => moveInd(activeLink));
     try { localStorage.setItem("nx-lang", lang); } catch (e) {}
   }
@@ -277,6 +280,40 @@
   track.addEventListener("pointerdown", e => { if (e.pointerType !== "mouse") return; down = true; sx = e.clientX; sl = track.scrollLeft; track.classList.add("dragging"); });
   addEventListener("pointerup", () => { down = false; track.classList.remove("dragging"); });
   addEventListener("pointermove", e => { if (down) track.scrollLeft = sl - (e.clientX - sx); });
+
+  /* ---------- Collections accordion ---------- */
+  const panels = $$(".cpanel");
+  const openPanel = p => panels.forEach(x => x.classList.toggle("active", x === p));
+  panels.forEach(p => {
+    p.addEventListener("mouseenter", () => { if (matchMedia("(hover: hover)").matches) openPanel(p); });
+    p.addEventListener("click", () => openPanel(p));
+    p.addEventListener("focus", () => openPanel(p));
+  });
+
+  /* ---------- Process timeline ---------- */
+  const psteps = $("#psteps"), pFill = $("#pstepsFill"), pItems = $$(".pstep"), pmFill = $("#pmFill");
+  let pCurrent = -1;
+  function processScroll() {
+    const r = psteps.getBoundingClientRect(), mid = innerHeight * .55;
+    if (r.bottom < -200 || r.top > innerHeight + 200) return;
+    const line = psteps.querySelector(".psteps__line"), lr = line.getBoundingClientRect();
+    const h = Math.min(Math.max(mid - lr.top, 0), lr.height);
+    pFill.style.height = h + "px";
+    let cur = -1;
+    pItems.forEach((it, i) => {
+      const on = it.querySelector(".pstep__dot").getBoundingClientRect().top + 30 < mid;
+      it.classList.toggle("on", on); if (on) cur = i;
+    });
+    if (cur !== pCurrent) {
+      pCurrent = cur;
+      pItems.forEach((it, i) => it.classList.toggle("current", i === cur));
+      const n = Math.max(cur, 0);
+      $("#pmNum").textContent = String(n + 1).padStart(2, "0");
+      $("#pmTitle").textContent = pItems[n].querySelector("h3").textContent;
+      pmFill.style.strokeDashoffset = 1 - (cur + 1) / pItems.length;
+    }
+  }
+  addEventListener("scroll", processScroll, { passive: true }); processScroll();
 
   /* ---------- Product spotlight ---------- */
   const PRODUCTS = {

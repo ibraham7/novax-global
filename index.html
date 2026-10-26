@@ -176,35 +176,80 @@
         <div class="section-head">
           <div>
             <span class="eyebrow reveal" data-i18n="coll.eyebrow">المجموعات</span>
-            <h2 class="h-section reveal reveal-d1" data-i18n-html="coll.title">كل غرفة تستحق <em>قطعة تركية</em></h2>
+            <h2 class="h-section" data-split data-i18n-html="coll.title">كل غرفة تستحق <em>قطعة تركية</em></h2>
           </div>
-          <a href="#contact" class="btn reveal reveal-d2"><span data-i18n="cta.catalog">احصل على الكتالوج</span></a>
+          <div class="coll-head-side reveal reveal-d2">
+            <p class="coll-hint" data-i18n="coll.hint">مرّر على أي مجموعة لتفتحها</p>
+            <a href="#contact" class="btn btn--icon" data-magnetic><span data-i18n="cta.catalog">احصل على الكتالوج</span><span class="btn__icon"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></i></span></a>
+          </div>
         </div>
-        <div class="coll-grid">
-          <a href="#contact" class="coll reveal">
-            <img src="assets/img/products/logan.jpg" alt="" loading="lazy">
-            <div class="coll__body"><div><span class="coll__num">01</span><h3 data-i18n="c1.t">أطقم الكنب</h3><p data-i18n="c1.d">تشكيلات عصرية وكلاسيكية بأقمشة فاخرة وألوان حسب الطلب.</p></div><span class="coll__go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-          </a>
-          <a href="#contact" class="coll reveal reveal-d1">
-            <img src="assets/img/products/flower.jpg" alt="" loading="lazy">
-            <div class="coll__body"><div><span class="coll__num">02</span><h3 data-i18n="c2.t">الكورنر</h3><p data-i18n="c2.d">زوايا مريحة بمقاسات مرنة تناسب كل مساحة.</p></div><span class="coll__go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-          </a>
-          <a href="#contact" class="coll reveal reveal-d2">
-            <img src="assets/img/products/puzzle.jpg" alt="" loading="lazy">
-            <div class="coll__body"><div><span class="coll__num">03</span><h3 data-i18n="c3.t">الكنب المودولار</h3><p data-i18n="c3.d">قطع منفصلة تُركّب كما تشاء، مثالية للمعارض والمشاريع.</p></div><span class="coll__go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-          </a>
-          <a href="#contact" class="coll reveal">
-            <img src="assets/img/products/nova.jpg" alt="" loading="lazy">
-            <div class="coll__body"><div><span class="coll__num">04</span><h3 data-i18n="c4.t">الفنادق والمشاريع</h3><p data-i18n="c4.d">تجهيز كامل لصالات الفنادق والشقق الفندقية والمكاتب.</p></div><span class="coll__go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-          </a>
-          <a href="#contact" class="coll reveal reveal-d1">
-            <img src="assets/img/products/mina.jpg" alt="" loading="lazy">
-            <div class="coll__body"><div><span class="coll__num">05</span><h3 data-i18n="c5.t">الفخامة الحديثة</h3><p data-i18n="c5.d">لمسات ذهبية ومخمل وتفاصيل تصنع حضوراً لافتاً.</p></div><span class="coll__go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-          </a>
-          <a href="#contact" class="coll reveal reveal-d2">
-            <img src="assets/img/products/lara.jpg" alt="" loading="lazy">
-            <div class="coll__body"><div><span class="coll__num">06</span><h3 data-i18n="c6.t">جلسات الشاي والحدائق</h3><p data-i18n="c6.d">بيرجير وكراسي وجلسات خفيفة للداخل والخارج.</p></div><span class="coll__go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-          </a>
+        <div class="coll-acc reveal" id="collAcc">
+          <article class="cpanel active" tabindex="0">
+            <img src="assets/img/products/logan.jpg" alt="">
+            <div class="cpanel__rail"><span class="cpanel__num">01</span><span class="cpanel__vtitle" data-i18n="c1.t">أطقم الكنب</span></div>
+            <div class="cpanel__body">
+              <span class="cpanel__count"><b>04</b> <span data-i18n="coll.models">موديلات</span></span>
+              <h3 data-i18n="c1.t">أطقم الكنب</h3>
+              <p data-i18n="c1.d">تشكيلات عصرية وكلاسيكية بأقمشة فاخرة وألوان حسب الطلب.</p>
+              <div class="cpanel__tags"><span>Logan</span><span>Azori</span><span>Naz</span><span>Riva</span></div>
+              <a href="#contact" class="cpanel__go" aria-label="اطلب عرض سعر"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            </div>
+          </article>
+          <article class="cpanel" tabindex="0">
+            <img src="assets/img/products/flower.jpg" alt="">
+            <div class="cpanel__rail"><span class="cpanel__num">02</span><span class="cpanel__vtitle" data-i18n="c2.t">الكورنر</span></div>
+            <div class="cpanel__body">
+              <span class="cpanel__count"><b>02</b> <span data-i18n="coll.models">موديلات</span></span>
+              <h3 data-i18n="c2.t">الكورنر</h3>
+              <p data-i18n="c2.d">زوايا مريحة بمقاسات مرنة تناسب كل مساحة.</p>
+              <div class="cpanel__tags"><span>Flower</span><span>Luka</span></div>
+              <a href="#contact" class="cpanel__go" aria-label="اطلب عرض سعر"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            </div>
+          </article>
+          <article class="cpanel" tabindex="0">
+            <img src="assets/img/products/puzzle.jpg" alt="">
+            <div class="cpanel__rail"><span class="cpanel__num">03</span><span class="cpanel__vtitle" data-i18n="c3.t">الكنب المودولار</span></div>
+            <div class="cpanel__body">
+              <span class="cpanel__count"><b>01</b> <span data-i18n="coll.model">موديل</span></span>
+              <h3 data-i18n="c3.t">الكنب المودولار</h3>
+              <p data-i18n="c3.d">قطع منفصلة تُركّب كما تشاء، مثالية للمعارض والمشاريع.</p>
+              <div class="cpanel__tags"><span>Puzzle</span></div>
+              <a href="#contact" class="cpanel__go" aria-label="اطلب عرض سعر"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            </div>
+          </article>
+          <article class="cpanel" tabindex="0">
+            <img src="assets/img/products/nova.jpg" alt="">
+            <div class="cpanel__rail"><span class="cpanel__num">04</span><span class="cpanel__vtitle" data-i18n="c4.t">الفنادق والمشاريع</span></div>
+            <div class="cpanel__body">
+              <span class="cpanel__count"><b>02</b> <span data-i18n="coll.models">موديلات</span></span>
+              <h3 data-i18n="c4.t">الفنادق والمشاريع</h3>
+              <p data-i18n="c4.d">تجهيز كامل لصالات الفنادق والشقق الفندقية والمكاتب.</p>
+              <div class="cpanel__tags"><span>Nova</span><span>Hamster</span></div>
+              <a href="#contact" class="cpanel__go" aria-label="اطلب عرض سعر"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            </div>
+          </article>
+          <article class="cpanel" tabindex="0">
+            <img src="assets/img/products/mina.jpg" alt="">
+            <div class="cpanel__rail"><span class="cpanel__num">05</span><span class="cpanel__vtitle" data-i18n="c5.t">الفخامة الحديثة</span></div>
+            <div class="cpanel__body">
+              <span class="cpanel__count"><b>03</b> <span data-i18n="coll.models">موديلات</span></span>
+              <h3 data-i18n="c5.t">الفخامة الحديثة</h3>
+              <p data-i18n="c5.d">لمسات ذهبية ومخمل وتفاصيل تصنع حضوراً لافتاً.</p>
+              <div class="cpanel__tags"><span>Mina</span><span>Ola</span><span>Pola</span></div>
+              <a href="#contact" class="cpanel__go" aria-label="اطلب عرض سعر"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            </div>
+          </article>
+          <article class="cpanel" tabindex="0">
+            <img src="assets/img/products/lara.jpg" alt="">
+            <div class="cpanel__rail"><span class="cpanel__num">06</span><span class="cpanel__vtitle" data-i18n="c6.t">جلسات الشاي والحدائق</span></div>
+            <div class="cpanel__body">
+              <span class="cpanel__count"><b>01</b> <span data-i18n="coll.model">موديل</span></span>
+              <h3 data-i18n="c6.t">جلسات الشاي والحدائق</h3>
+              <p data-i18n="c6.d">بيرجير وكراسي وجلسات خفيفة للداخل والخارج.</p>
+              <div class="cpanel__tags"><span>Lara</span></div>
+              <a href="#contact" class="cpanel__go" aria-label="اطلب عرض سعر"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -292,23 +337,46 @@
     </section>
 
     <!-- ===== Process ===== -->
-    <section class="section" id="process">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <span class="eyebrow reveal" data-i18n="proc.eyebrow">آلية التصدير</span>
-            <h2 class="h-section reveal reveal-d1" data-i18n-html="proc.title">من فكرتك إلى <em>باب مستودعك</em> بستّ خطوات</h2>
-          </div>
+    <section class="section process" id="process">
+      <div class="container process__wrap">
+        <div class="process__aside">
+          <span class="eyebrow reveal" data-i18n="proc.eyebrow">آلية التصدير</span>
+          <h2 class="h-section" data-split data-i18n-html="proc.title">من فكرتك إلى <em>باب مستودعك</em> بستّ خطوات</h2>
           <p class="lead reveal reveal-d2" data-i18n="proc.lead">فريق واحد يرافقك من أول رسالة حتى تسليم آخر قطعة، بلغتك وبشفافية كاملة.</p>
+          <div class="process__meter reveal reveal-d3" aria-hidden="true">
+            <svg viewBox="0 0 120 120"><circle class="pm-track" cx="60" cy="60" r="54"/><circle class="pm-fill" id="pmFill" cx="60" cy="60" r="54" pathLength="1"/></svg>
+            <div class="pm-text"><b id="pmNum">01</b><span>/ 06</span></div>
+            <div class="pm-label"><small data-i18n="proc.now">المرحلة الحالية</small><strong id="pmTitle">الاستشارة</strong></div>
+          </div>
+          <a href="#contact" class="btn btn--solid btn--icon reveal" data-magnetic><span data-i18n="proc.cta">ابدأ مشروعك</span><span class="btn__icon"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></span></a>
         </div>
-        <div class="process__list">
-          <div class="step reveal"><div class="step__num">01</div><h3 data-i18n="st1.t">الاستشارة</h3><p data-i18n="st1.d">نفهم مشروعك، ميزانيتك، والسوق الذي تبيع فيه.</p></div>
-          <div class="step reveal reveal-d1"><div class="step__num">02</div><h3 data-i18n="st2.t">الاختيار والتصميم</h3><p data-i18n="st2.d">كتالوجات وعيّنات وزيارات للمعارض والمصانع، حضورياً أو بالفيديو.</p></div>
-          <div class="step reveal reveal-d2"><div class="step__num">03</div><h3 data-i18n="st3.t">عرض السعر والتعاقد</h3><p data-i18n="st3.d">عرض واضح بأسعار المصنع وشروط دفع وتسليم مكتوبة.</p></div>
-          <div class="step reveal"><div class="step__num">04</div><h3 data-i18n="st4.t">التصنيع والمتابعة</h3><p data-i18n="st4.d">تقارير مصوّرة دورية من خط الإنتاج حتى الانتهاء.</p></div>
-          <div class="step reveal reveal-d1"><div class="step__num">05</div><h3 data-i18n="st5.t">فحص الجودة والتغليف</h3><p data-i18n="st5.d">فحص قطعة بقطعة وتغليف تصديري يحمي الأثاث في الرحلة.</p></div>
-          <div class="step reveal reveal-d2"><div class="step__num">06</div><h3 data-i18n="st6.t">الشحن والتسليم</h3><p data-i18n="st6.d">تحميل الحاويات، الأوراق الجمركية، والتسليم حتى بابك.</p></div>
-        </div>
+        <ol class="psteps" id="psteps">
+          <li class="psteps__line" aria-hidden="true"><i id="pstepsFill"></i></li>
+          <li class="pstep reveal">
+            <span class="pstep__dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 5h16v10H8l-4 4V5z"/><path d="M8 9h8M8 12h5"/></svg></span>
+            <div class="pstep__card"><span class="pstep__num">01</span><h3 data-i18n="st1.t">الاستشارة</h3><p data-i18n="st1.d">نفهم مشروعك، ميزانيتك، والسوق الذي تبيع فيه.</p></div>
+          </li>
+          <li class="pstep reveal">
+            <span class="pstep__dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="4" width="8" height="7" rx="1"/><rect x="13" y="4" width="8" height="7" rx="1"/><rect x="3" y="13" width="8" height="7" rx="1"/><path d="M15 16.5l2 2 3.5-4"/></svg></span>
+            <div class="pstep__card"><span class="pstep__num">02</span><h3 data-i18n="st2.t">الاختيار والتصميم</h3><p data-i18n="st2.d">كتالوجات وعيّنات وزيارات للمعارض والمصانع، حضورياً أو بالفيديو.</p></div>
+          </li>
+          <li class="pstep reveal">
+            <span class="pstep__dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg></span>
+            <div class="pstep__card"><span class="pstep__num">03</span><h3 data-i18n="st3.t">عرض السعر والتعاقد</h3><p data-i18n="st3.d">عرض واضح بأسعار المصنع وشروط دفع وتسليم مكتوبة.</p></div>
+          </li>
+          <li class="pstep reveal">
+            <span class="pstep__dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 21V9l6-4v4l6-4v4l6-4v16H3z"/><path d="M7 21v-4h3v4"/></svg></span>
+            <div class="pstep__card"><span class="pstep__num">04</span><h3 data-i18n="st4.t">التصنيع والمتابعة</h3><p data-i18n="st4.d">تقارير مصوّرة دورية من خط الإنتاج حتى الانتهاء.</p></div>
+          </li>
+          <li class="pstep reveal">
+            <span class="pstep__dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5L16 9.5"/></svg></span>
+            <div class="pstep__card"><span class="pstep__num">05</span><h3 data-i18n="st5.t">فحص الجودة والتغليف</h3><p data-i18n="st5.d">فحص قطعة بقطعة وتغليف تصديري يحمي الأثاث في الرحلة.</p></div>
+          </li>
+          <li class="pstep reveal">
+            <span class="pstep__dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 17h20l-2 4H4l-2-4z"/><path d="M5 17V9h6v8M11 12h7v5"/></svg></span>
+            <div class="pstep__card"><span class="pstep__num">06</span><h3 data-i18n="st6.t">الشحن والتسليم</h3><p data-i18n="st6.d">تحميل الحاويات، الأوراق الجمركية، والتسليم حتى بابك.</p></div>
+          </li>
+        </ol>
       </div>
     </section>
 
