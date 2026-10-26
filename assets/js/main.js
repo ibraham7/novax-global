@@ -70,6 +70,7 @@
     "f.err": "Please fill in your name, phone and country, and pick a request type.",
     "f.ok": "WhatsApp is open with your request ready. Press send there to complete it.",
     "ft.about": "Exporting luxury Turkish furniture from the factory to the world.",
+    "ft.ctaEy": "Ready to start?", "ft.ctaT": "Let's furnish your <em>next project</em> together",
     "ft.company": "Company", "ft.coll": "Collections", "ft.rights": "All rights reserved."
   };
   const AR = {};
@@ -709,6 +710,21 @@
   const ist = $("#istTime");
   const tickClock = () => { ist.textContent = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Istanbul", hour: "2-digit", minute: "2-digit" }).format(new Date()); };
   tickClock(); setInterval(tickClock, 30000);
+
+  /* ---------- Footer: wordmark spotlight, back to top ---------- */
+  const mega = $("#footMega");
+  io.observe(mega);
+  mega.addEventListener("mousemove", e => {
+    const r = mega.getBoundingClientRect();
+    mega.style.setProperty("--mx", (e.clientX - r.left) + "px");
+    mega.style.setProperty("--my", (e.clientY - r.top) + "px");
+  });
+  const ring = $("#toTopRing");
+  addEventListener("scroll", () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    ring.style.strokeDashoffset = 1 - (max > 0 ? scrollY / max : 0);
+  }, { passive: true });
+  $("#toTop").addEventListener("click", () => scrollTo({ top: 0, behavior: "smooth" }));
 
   $("#year").textContent = new Date().getFullYear();
 })();
