@@ -43,6 +43,8 @@
     "st5.t": "QC & Packing", "st5.d": "Piece-by-piece inspection and export-grade packing.",
     "st6.t": "Shipping & Delivery", "st6.d": "Container loading, customs paperwork and door delivery.",
     "reg.eyebrow": "Our Markets", "reg.title": "Türkiye at the centre, <em>the world</em> our destination",
+    "reg.lead": "From our warehouses in Türkiye we ship by land and sea to four main regions. Pick yours to see the route.",
+    "reg.live": "Active routes", "reg.drag": "Drag to spin the globe",
     "r1.t": "Arabian Gulf", "r1.d": "Saudi Arabia · UAE · Qatar · Kuwait · Oman · Bahrain",
     "r2.t": "Middle East", "r2.d": "Iraq · Jordan · Lebanon · Syria",
     "r3.t": "North Africa", "r3.d": "Libya · Algeria · Morocco · Tunisia · Egypt",
@@ -314,6 +316,184 @@
     }
   }
   addEventListener("scroll", processScroll, { passive: true }); processScroll();
+
+  /* ---------- Markets globe ---------- */
+  (() => {
+    const wrap = $("#globe"), cv = $("#globeCanvas"), ctx = cv.getContext("2d"), tabs = $("#rtabs");
+    const D = Math.PI / 180, HUB = [41.0, 29.0];
+    const CITIES = {
+      gulf: [["Riyadh", 24.7, 46.7, "l"], ["Dubai", 25.2, 55.3], ["Doha", 25.3, 51.5, "b"], ["Kuwait", 29.4, 48.0], ["Muscat", 23.6, 58.4, "b"]],
+      levant: [["Baghdad", 33.3, 44.4], ["Erbil", 36.2, 44.0], ["Amman", 31.9, 35.9], ["Beirut", 33.9, 35.5], ["Damascus", 33.5, 36.3]],
+      africa: [["Tripoli", 32.9, 13.2], ["Algiers", 36.8, 3.1], ["Casablanca", 33.6, -7.6], ["Tunis", 36.8, 10.2], ["Cairo", 30.0, 31.2]],
+      europe: [["Berlin", 52.5, 13.4], ["Paris", 48.9, 2.35], ["Amsterdam", 52.4, 4.9], ["Brussels", 50.8, 4.4], ["London", 51.5, -0.1]]
+    };
+    const FOCUS = { gulf: [32, 40], levant: [36.5, 34], africa: [36, 16], europe: [46, 16] };
+    const RDUR = 6000;
+    tabs.style.setProperty("--rdur", RDUR + "ms");
+
+    let region = "gulf", lat0 = 32, lon0 = 38, tLat = 30, tLon = 42, W = 0, R = 0, cx = 0, cy = 0, dpr = 1, visible = false, t0 = performance.now();
+    let cycleTimer, resumeTimer;
+
+    // texture: evenly spread dots on the sphere
+    const DOTS = [];
+    for (let i = 0, n = 9000; i < n; i++) {
+      const y = 1 - (i / (n - 1)) * 2, r = Math.sqrt(1 - y * y), th = i * 2.399963;
+      DOTS.push([Math.asin(y) / D, Math.atan2(Math.sin(th) * r, Math.cos(th) * r) / D]);
+    }
+
+    const vec = (lat, lon) => [Math.cos(lat * D) * Math.cos(lon * D), Math.cos(lat * D) * Math.sin(lon * D), Math.sin(lat * D)];
+    function project(v) {
+      const r = Math.hypot(v[0], v[1], v[2]), lat = Math.asin(v[2] / r), lon = Math.atan2(v[1], v[0]);
+      const dl = lon - lon0 * D, cl0 = Math.cos(lat0 * D), sl0 = Math.sin(lat0 * D);
+      const x = Math.cos(lat) * Math.sin(dl);
+      const y = cl0 * Math.sin(lat) - sl0 * Math.cos(lat) * Math.cos(dl);
+      const z = sl0 * Math.sin(lat) + cl0 * Math.cos(lat) * Math.cos(dl);
+      return [cx + x * R * r, cy - y * R * r, z, r];
+    }
+    function arcPoints(a, b, steps = 48) {
+      const va = vec(a[0], a[1]), vb = vec(b[0], b[1]);
+      const om = Math.acos(Math.min(1, va[0] * vb[0] + va[1] * vb[1] + va[2] * vb[2])), so = Math.sin(om) || 1;
+      const h = .06 + om * .35, pts = [];
+      for (let i = 0; i <= steps; i++) {
+        const t = i / steps, k1 = Math.sin((1 - t) * om) / so, k2 = Math.sin(t * om) / so, lift = 1 + h * Math.sin(Math.PI * t);
+        pts.push(project([(va[0] * k1 + vb[0] * k2) * lift, (va[1] * k1 + vb[1] * k2) * lift, (va[2] * k1 + vb[2] * k2) * lift]));
+      }
+      return pts;
+    }
+    const front = p => p[2] > -0.05 || p[3] > 1.02 && p[2] > -0.35;
+
+    function resize() {
+      dpr = Math.min(devicePixelRatio || 1, 2); W = wrap.clientWidth;
+      cv.width = W * dpr; cv.height = W * dpr; R = W * 1.1; LENS = W * .46; cx = cy = W / 2;
+    }
+    let LENS = 0;
+
+    function draw(now) {
+      const t = (now - t0) / 1000;
+      // ease the view toward its target, with a gentle idle drift
+      lat0 += (tLat - lat0) * .05;
+      lon0 += (tLon + Math.sin(t * .3) * 3 - lon0) * .05;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, W);
+
+      // the globe is larger than the frame: we look at it through a round lens
+      ctx.save();
+      ctx.beginPath(); ctx.arc(cx, cy, LENS, 0, Math.PI * 2); ctx.clip();
+      const g = ctx.createRadialGradient(cx - LENS * .4, cy - LENS * .5, LENS * .1, cx, cy, LENS * 1.1);
+      g.addColorStop(0, "rgba(64,55,40,1)"); g.addColorStop(.65, "rgba(26,24,18,1)"); g.addColorStop(1, "rgba(13,13,11,1)");
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, W);
+
+      // graticule
+      ctx.strokeStyle = "rgba(244,239,230,.06)"; ctx.lineWidth = 1;
+      for (let la = -80; la <= 80; la += 10) {
+        ctx.beginPath(); let pen = false;
+        for (let lo = -180; lo <= 180; lo += 4) { const p = project(vec(la, lo)); if (p[2] > 0) { pen ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); pen = true; } else pen = false; }
+        ctx.stroke();
+      }
+      for (let lo = -180; lo < 180; lo += 10) {
+        ctx.beginPath(); let pen = false;
+        for (let la = -90; la <= 90; la += 4) { const p = project(vec(la, lo)); if (p[2] > 0) { pen ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); pen = true; } else pen = false; }
+        ctx.stroke();
+      }
+
+      // dot texture
+      for (const [la, lo] of DOTS) {
+        const p = project(vec(la, lo)); if (p[2] <= 0) continue;
+        const dx = p[0] - cx, dy = p[1] - cy; if (dx * dx + dy * dy > LENS * LENS) continue;
+        ctx.fillStyle = `rgba(226,196,143,${(.06 + p[2] * .22).toFixed(3)})`;
+        ctx.fillRect(p[0] - .8, p[1] - .8, 1.6, 1.6);
+      }
+
+      // routes
+      for (const key of Object.keys(CITIES)) {
+        const on = key === region;
+        CITIES[key].forEach(([name, la, lo, side], i) => {
+          const pts = arcPoints(HUB, [la, lo]);
+          ctx.beginPath(); let pen = false;
+          for (const p of pts) { if (front(p)) { pen ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); pen = true; } else pen = false; }
+          ctx.strokeStyle = on ? "rgba(226,196,143,.85)" : "rgba(193,154,91,.18)"; ctx.lineWidth = on ? 1.4 : 1; ctx.stroke();
+          if (on) {
+            // a light travelling along the route
+            const k = ((t * .35 + i * .17) % 1), idx = Math.floor(k * (pts.length - 1)), p = pts[idx];
+            if (front(p)) {
+              const gl = ctx.createRadialGradient(p[0], p[1], 0, p[0], p[1], 9);
+              gl.addColorStop(0, "rgba(255,236,200,1)"); gl.addColorStop(1, "rgba(226,196,143,0)");
+              ctx.fillStyle = gl; ctx.beginPath(); ctx.arc(p[0], p[1], 9, 0, Math.PI * 2); ctx.fill();
+            }
+          }
+          const c = project(vec(la, lo));
+          if (c[2] > 0) {
+            ctx.fillStyle = on ? "#e2c48f" : "rgba(193,154,91,.45)";
+            ctx.beginPath(); ctx.arc(c[0], c[1], on ? 3.2 : 2, 0, Math.PI * 2); ctx.fill();
+            if (on) {
+              const pr = (t * .8 + i * .2) % 1;
+              ctx.strokeStyle = `rgba(226,196,143,${(1 - pr).toFixed(2)})`; ctx.beginPath(); ctx.arc(c[0], c[1], 3 + pr * 12, 0, Math.PI * 2); ctx.stroke();
+              ctx.fillStyle = "rgba(244,239,230,.9)"; ctx.font = "500 11.5px Manrope, sans-serif";
+              if (side === "l") { ctx.textAlign = "right"; ctx.fillText(name, c[0] - 8, c[1] + 4); }
+              else if (side === "b") { ctx.textAlign = "center"; ctx.fillText(name, c[0], c[1] + 18); }
+              else { ctx.textAlign = "left"; ctx.fillText(name, c[0] + 8, c[1] + 4); }
+            }
+          }
+        });
+      }
+
+      // hub
+      const h = project(vec(HUB[0], HUB[1]));
+      if (h[2] > 0) {
+        const pr = (t * .6) % 1;
+        ctx.strokeStyle = `rgba(226,196,143,${(1 - pr).toFixed(2)})`; ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.arc(h[0], h[1], 6 + pr * 22, 0, Math.PI * 2); ctx.stroke();
+        ctx.fillStyle = "#e2c48f"; ctx.beginPath(); ctx.arc(h[0], h[1], 5.5, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#e2c48f"; ctx.font = "600 13px Manrope, sans-serif"; ctx.textAlign = "left";
+        ctx.fillText("TÜRKİYE", h[0] + 10, h[1] - 10);
+      }
+      // inner vignette so the lens edge reads as a curved horizon
+      const vg = ctx.createRadialGradient(cx, cy, LENS * .6, cx, cy, LENS);
+      vg.addColorStop(0, "rgba(13,13,11,0)"); vg.addColorStop(1, "rgba(13,13,11,.75)");
+      ctx.fillStyle = vg; ctx.fillRect(0, 0, W, W);
+      ctx.restore();
+
+      ctx.strokeStyle = "rgba(193,154,91,.45)"; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(cx, cy, LENS, 0, Math.PI * 2); ctx.stroke();
+      ctx.setLineDash([2, 6]); ctx.strokeStyle = "rgba(193,154,91,.25)";
+      ctx.beginPath(); ctx.arc(cx, cy, LENS + 14, t * .1, t * .1 + Math.PI * 2); ctx.stroke();
+      ctx.setLineDash([]);
+
+      if (visible) requestAnimationFrame(draw);
+    }
+
+    function setRegion(key, user) {
+      region = key; [tLat, tLon] = FOCUS[key];
+      $$(".rtab", tabs).forEach(b => {
+        const on = b.dataset.region === key; b.classList.toggle("active", on);
+        if (on) { const bar = b.querySelector(".rtab__bar i"); bar.style.animation = "none"; void bar.offsetWidth; bar.style.animation = ""; }
+      });
+      if (user) pause();
+    }
+    function cycle() { clearTimeout(cycleTimer); cycleTimer = setTimeout(() => { const k = Object.keys(CITIES); setRegion(k[(k.indexOf(region) + 1) % k.length]); cycle(); }, RDUR); }
+    function pause() { clearTimeout(cycleTimer); clearTimeout(resumeTimer); tabs.classList.add("paused"); resumeTimer = setTimeout(() => { tabs.classList.remove("paused"); setRegion(region); cycle(); }, 12000); }
+
+    $$(".rtab", tabs).forEach(b => b.addEventListener("click", () => setRegion(b.dataset.region, true)));
+
+    // drag to spin
+    let drag = null;
+    wrap.addEventListener("pointerdown", e => { drag = [e.clientX, e.clientY, tLon, tLat]; wrap.classList.add("dragging"); wrap.setPointerCapture(e.pointerId); pause(); });
+    wrap.addEventListener("pointermove", e => {
+      if (!drag) return;
+      tLon = drag[2] - (e.clientX - drag[0]) * .12;
+      tLat = Math.max(10, Math.min(60, drag[3] + (e.clientY - drag[1]) * .12));
+    });
+    const endDrag = () => { drag = null; wrap.classList.remove("dragging"); };
+    wrap.addEventListener("pointerup", endDrag); wrap.addEventListener("pointercancel", endDrag);
+
+    resize(); addEventListener("resize", resize);
+    new IntersectionObserver(es => es.forEach(e => {
+      const was = visible; visible = e.isIntersecting;
+      if (visible && !was) { requestAnimationFrame(draw); if (!tabs.classList.contains("paused")) cycle(); }
+      if (!visible) clearTimeout(cycleTimer);
+    }), { rootMargin: "100px" }).observe(wrap);
+    draw(performance.now());
+  })();
 
   /* ---------- Product spotlight ---------- */
   const PRODUCTS = {

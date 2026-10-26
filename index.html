@@ -381,35 +381,42 @@
     </section>
 
     <!-- ===== Regions ===== -->
-    <section class="section regions" id="regions" style="padding-top:0">
+    <section class="section regions" id="regions">
       <div class="container regions__wrap">
-        <div>
+        <div class="regions__text">
           <span class="eyebrow reveal" data-i18n="reg.eyebrow">أسواقنا</span>
-          <h2 class="h-section reveal reveal-d1" style="margin-top:20px" data-i18n-html="reg.title">تركيا في المركز، <em>والعالم</em> وجهتنا</h2>
-          <div class="region-list">
-            <div class="region reveal"><h4 data-i18n="r1.t">الخليج العربي</h4><span data-i18n="r1.d">السعودية · الإمارات · قطر · الكويت · عُمان · البحرين</span></div>
-            <div class="region reveal reveal-d1"><h4 data-i18n="r2.t">الشرق الأوسط</h4><span data-i18n="r2.d">العراق · الأردن · لبنان · سوريا</span></div>
-            <div class="region reveal reveal-d2"><h4 data-i18n="r3.t">شمال أفريقيا</h4><span data-i18n="r3.d">ليبيا · الجزائر · المغرب · تونس · مصر</span></div>
-            <div class="region reveal reveal-d3"><h4 data-i18n="r4.t">أوروبا</h4><span data-i18n="r4.d">ألمانيا · فرنسا · هولندا · بلجيكا · بريطانيا</span></div>
+          <h2 class="h-section" data-split data-i18n-html="reg.title">تركيا في المركز، <em>والعالم</em> وجهتنا</h2>
+          <p class="lead reveal reveal-d2" data-i18n="reg.lead">من مستودعاتنا في تركيا نشحن براً وبحراً إلى أربع مناطق رئيسية. اختر منطقتك لترى مسار الشحن.</p>
+          <div class="rtabs" id="rtabs">
+            <button class="rtab active reveal" data-region="gulf">
+              <span class="rtab__head"><b data-i18n="r1.t">الخليج العربي</b><em class="rtab__routes"><i title="Sea"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 15h18l-2.5 4h-13L3 15z"/><path d="M6 15V9h7v6M13 11h4l1 4"/><path d="M2 21c2 0 2-1 4-1s2 1 4 1 2-1 4-1 2 1 4 1 2-1 4-1"/></svg></i><i title="Land"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 6h12v10H2zM14 9h4l4 4v3h-8z"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></i></em></span>
+              <span class="rtab__chips" data-i18n="r1.d">السعودية · الإمارات · قطر · الكويت · عُمان · البحرين</span>
+              <span class="rtab__bar"><i></i></span>
+            </button>
+            <button class="rtab reveal reveal-d1" data-region="levant">
+              <span class="rtab__head"><b data-i18n="r2.t">الشرق الأوسط</b><em class="rtab__routes"><i title="Land"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 6h12v10H2zM14 9h4l4 4v3h-8z"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></i><i title="Sea"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 15h18l-2.5 4h-13L3 15z"/><path d="M6 15V9h7v6M13 11h4l1 4"/><path d="M2 21c2 0 2-1 4-1s2 1 4 1 2-1 4-1 2 1 4 1 2-1 4-1"/></svg></i></em></span>
+              <span class="rtab__chips" data-i18n="r2.d">العراق · الأردن · لبنان · سوريا</span>
+              <span class="rtab__bar"><i></i></span>
+            </button>
+            <button class="rtab reveal reveal-d2" data-region="africa">
+              <span class="rtab__head"><b data-i18n="r3.t">شمال أفريقيا</b><em class="rtab__routes"><i title="Sea"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 15h18l-2.5 4h-13L3 15z"/><path d="M6 15V9h7v6M13 11h4l1 4"/><path d="M2 21c2 0 2-1 4-1s2 1 4 1 2-1 4-1 2 1 4 1 2-1 4-1"/></svg></i></em></span>
+              <span class="rtab__chips" data-i18n="r3.d">ليبيا · الجزائر · المغرب · تونس · مصر</span>
+              <span class="rtab__bar"><i></i></span>
+            </button>
+            <button class="rtab reveal reveal-d3" data-region="europe">
+              <span class="rtab__head"><b data-i18n="r4.t">أوروبا</b><em class="rtab__routes"><i title="Land"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 6h12v10H2zM14 9h4l4 4v3h-8z"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></i><i title="Sea"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 15h18l-2.5 4h-13L3 15z"/><path d="M6 15V9h7v6M13 11h4l1 4"/><path d="M2 21c2 0 2-1 4-1s2 1 4 1 2-1 4-1 2 1 4 1 2-1 4-1"/></svg></i></em></span>
+              <span class="rtab__chips" data-i18n="r4.d">ألمانيا · فرنسا · هولندا · بلجيكا · بريطانيا</span>
+              <span class="rtab__bar"><i></i></span>
+            </button>
           </div>
         </div>
-        <div class="globe" id="globe">
-          <svg viewBox="0 0 600 600">
-            <circle class="ring" cx="300" cy="300" r="290"/>
-            <circle class="ring" cx="300" cy="300" r="210" stroke-dasharray="3 7"/>
-            <circle class="ring" cx="300" cy="300" r="130"/>
-            <path class="arc" d="M300 300 Q 380 330 450 420"/>
-            <path class="arc" d="M300 300 Q 400 250 500 320"/>
-            <path class="arc" d="M300 300 Q 330 380 340 480"/>
-            <path class="arc" d="M300 300 Q 200 360 130 430"/>
-            <path class="arc" d="M300 300 Q 220 180 150 140"/>
-            <g class="hub"><circle class="pulse" cx="300" cy="300" r="10"/><circle class="node" cx="300" cy="300" r="7"/><text x="318" y="290">TÜRKİYE</text></g>
-            <g><circle class="pulse" cx="450" cy="420" r="6"/><circle class="node" cx="450" cy="420" r="4"/><text x="462" y="436">Riyadh</text></g>
-            <g><circle class="pulse" cx="500" cy="320" r="6"/><circle class="node" cx="500" cy="320" r="4"/><text x="512" y="324">Dubai</text></g>
-            <g><circle class="pulse" cx="340" cy="480" r="6"/><circle class="node" cx="340" cy="480" r="4"/><text x="352" y="496">Baghdad</text></g>
-            <g><circle class="pulse" cx="130" cy="430" r="6"/><circle class="node" cx="130" cy="430" r="4"/><text x="60" y="458">Tripoli</text></g>
-            <g><circle class="pulse" cx="150" cy="140" r="6"/><circle class="node" cx="150" cy="140" r="4"/><text x="90" y="124">Berlin</text></g>
-          </svg>
+        <div class="globe reveal" id="globe">
+          <div class="globe__glow"></div>
+          <canvas id="globeCanvas" aria-label="خريطة تفاعلية لأسواق التصدير"></canvas>
+          <div class="globe__hud">
+            <span class="globe__live"><i></i><span data-i18n="reg.live">شحنات نشطة</span></span>
+            <span class="globe__drag" data-i18n="reg.drag">اسحب لتدوير الكرة</span>
+          </div>
         </div>
       </div>
     </section>
