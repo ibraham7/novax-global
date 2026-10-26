@@ -210,10 +210,11 @@ a:hover .roll::after, button:hover .roll::after { transform: translateY(0); }
 .header__actions { display: flex; align-items: center; gap: 14px; }
 
 /* Language toggle with sliding knob */
-.lang { position: relative; display: flex; direction: ltr; padding: 4px; border-radius: 999px; border: 1px solid rgba(244,239,230,.14); background: rgba(13,13,11,.3); }
-.lang__knob { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); border-radius: 999px; background: var(--gold); transition: transform .55s var(--ease-out); }
-html[lang="en"] .lang__knob { transform: translateX(100%); }
-.lang button { position: relative; z-index: 1; width: 40px; height: 30px; font-size: 12px; letter-spacing: .08em; color: var(--muted); direction: ltr; transition: color .45s var(--ease-out); }
+.lang { --lw: 40px; position: relative; display: flex; direction: ltr; padding: 4px; border-radius: 999px; border: 1px solid rgba(244,239,230,.14); background: rgba(13,13,11,.3); }
+.lang__knob { position: absolute; top: 4px; bottom: 4px; left: 4px; width: var(--lw); border-radius: 999px; background: var(--gold); transition: transform .55s var(--ease-out); }
+html[lang="en"] .lang__knob { transform: translateX(var(--lw)); }
+html[lang="tr"] .lang__knob { transform: translateX(calc(var(--lw) * 2)); }
+.lang button { position: relative; z-index: 1; width: var(--lw); height: 30px; font-size: 12px; letter-spacing: .08em; color: var(--muted); direction: ltr; transition: color .45s var(--ease-out); }
 .lang button:hover { color: var(--ivory); }
 .lang button.active { color: var(--ink); font-weight: 500; }
 
@@ -284,7 +285,8 @@ html[dir="rtl"] .mobile-menu { clip-path: circle(0% at 50px 50px); }
   .brand__name { font-size: 16px; letter-spacing: .1em; }
   .brand__sub { font-size: 7px; letter-spacing: .3em; }
   .header__actions { gap: 8px; }
-  .lang button { width: 34px; height: 28px; }
+  .lang { --lw: 32px; }
+  .lang button { height: 28px; }
   .burger { width: 42px; height: 42px; }
   .burger span { left: 12px; right: 12px; } .burger span:first-child { top: 17px; } .burger span:last-child { top: 24px; right: 18px; }
   .menu-open .burger span:first-child, .menu-open .burger span:last-child { top: 20px; right: 12px; }

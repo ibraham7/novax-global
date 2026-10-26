@@ -73,9 +73,156 @@
     "ft.ctaEy": "Ready to start?", "ft.ctaT": "Let's furnish your <em>next project</em> together",
     "ft.company": "Company", "ft.coll": "Collections", "ft.rights": "All rights reserved."
   };
+  const TR = {
+    "mk.label": "İhracat noktaları",
+    "top.msg": "Türkiye'nin fabrikalarından doğrudan Körfez'e, Orta Doğu'ya ve Avrupa'ya",
+    "nav.about": "Hakkımızda",
+    "nav.collections": "Koleksiyonlar",
+    "nav.process": "İhracat Süreci",
+    "nav.regions": "Pazarlar",
+    "nav.contact": "İletişim",
+    "cta.quote": "Teklif İste",
+    "cta.explore": "Koleksiyonları Keşfet",
+    "cta.catalog": "Kataloğu Al",
+    "cta.wa": "WhatsApp'tan Yazın",
+    "hero.eyebrow": "Türkiye'den Dünyaya",
+    "hero.l1": "Lüks Türk mobilyası,",
+    "hero.l2": "özenle üretilir, <em>ihraç edilir</em>",
+    "hero.l3": "her yere.",
+    "hero.lead": "Türkiye'nin en iyi fabrikalarından seçtiğimiz parçaları, kalite kontrolünden paketlemeye, nakliyeden gümrüğe kadar biz yönetiyoruz. Mobilyanız Körfez'de, Orta Doğu'da ve Avrupa'da kapınıza ulaşır.",
+    "about.badge": "Türkiye'de Üretildi",
+    "about.eyebrow": "Hakkımızda",
+    "about.title": "Türkiye'nin <em>en iyi mobilya üreticilerine</em> doğrudan köprünüz",
+    "about.p": "NovaX Global; dünyanın dört bir yanındaki alıcıları, geliştiricileri ve showroom sahiplerini İnegöl, İstanbul ve Kayseri'deki önde gelen mobilya fabrikalarıyla buluşturan uzman bir ihracat firmasıdır. Mesafeyi, dil engelini ve belirsizliği ortadan kaldırıyoruz; fabrika fiyatı ve fabrika kalitesiyle.",
+    "about.chip.t": "Sevkiyattan önce kontrol",
+    "about.chip.d": "Her parça kontrol edilir ve sizin için fotoğraflanır",
+    "about.r1": "Fabrika",
+    "about.r2": "Kontrol",
+    "about.r3": "Nakliye",
+    "about.r4": "Kapınız",
+    "about.cta": "Nasıl çalışıyoruz?",
+    "p1.t": "Doğrudan Fabrikadan",
+    "p1.d": "Aracı yok, fabrika fiyatı.",
+    "p2.t": "Sıkı Kalite Kontrol",
+    "p2.d": "Her parça yüklemeden önce kontrol edilir.",
+    "p3.t": "Nakliye ve Gümrük",
+    "p3.d": "Deniz ve kara yoluyla deponuza teslim.",
+    "p4.t": "Siparişe Özel Üretim",
+    "p4.d": "Ölçü, kumaş ve renk size göre.",
+    "coll.eyebrow": "Koleksiyonlar",
+    "coll.title": "Her odanın hakkı <em>bir Türk parçası</em>",
+    "coll.hint": "Açmak için bir koleksiyonun üzerine gelin",
+    "coll.models": "model",
+    "coll.model": "model",
+    "proc.now": "Mevcut aşama",
+    "proc.cta": "Projenizi başlatın",
+    "c1.t": "Koltuk Takımları",
+    "c1.d": "Birinci sınıf kumaşlarla ve özel renklerle modern ve klasik takımlar.",
+    "c2.t": "Köşe Koltuklar",
+    "c2.d": "Her alana uyan esnek ölçülerde rahat köşe takımları.",
+    "c3.t": "Modüler Koltuklar",
+    "c3.d": "İstediğiniz gibi dizilen ayrı parçalar; showroom ve projeler için ideal.",
+    "c4.t": "Oteller ve Projeler",
+    "c4.d": "Otel lobileri, apart daireler ve ofisler için komple donatım.",
+    "c5.t": "Modern Lüks",
+    "c5.d": "Altın detaylar, kadife ve fark yaratan ayrıntılar.",
+    "c6.t": "Çay ve Bahçe Takımları",
+    "c6.d": "İç ve dış mekân için berjerler, sandalyeler ve hafif takımlar.",
+    "s1": "İhracat Yapılan Ülke",
+    "s2": "Ortak Fabrika",
+    "s3": "Gönderilen Konteyner",
+    "s4": "Yıllık Deneyim",
+    "proc.eyebrow": "İhracat Süreci",
+    "proc.title": "Fikrinizden <em>deponuza</em> altı adımda",
+    "proc.lead": "İlk mesajdan son parçanın teslimine kadar tek bir ekip yanınızda; kendi dilinizde ve tam şeffaflıkla.",
+    "st1.t": "Danışmanlık",
+    "st1.d": "Projenizi, bütçenizi ve hedef pazarınızı anlıyoruz.",
+    "st2.t": "Seçim ve Tasarım",
+    "st2.d": "Kataloglar, numuneler, showroom ve fabrika ziyaretleri; yüz yüze veya görüntülü.",
+    "st3.t": "Teklif ve Sözleşme",
+    "st3.d": "Fabrika fiyatlarıyla net bir teklif; yazılı ödeme ve teslimat koşulları.",
+    "st4.t": "Üretim Takibi",
+    "st4.d": "Üretim hattından düzenli fotoğraflı raporlar.",
+    "st5.t": "Kalite Kontrol ve Paketleme",
+    "st5.d": "Parça parça kontrol ve ihracat standardında paketleme.",
+    "st6.t": "Nakliye ve Teslimat",
+    "st6.d": "Konteyner yükleme, gümrük evrakları ve kapıya teslim.",
+    "reg.eyebrow": "Pazarlarımız",
+    "reg.title": "Merkezde Türkiye, <em>hedefte dünya</em>",
+    "reg.lead": "Türkiye'deki depolarımızdan dört ana bölgeye kara ve deniz yoluyla sevk ediyoruz. Güzergâhı görmek için bölgenizi seçin.",
+    "show.lead": "Körfez ve Avrupa'daki müşterilerimizin en çok sipariş ettiği modellerden bir seçki. Gezinmek için sürükleyin veya okları kullanın.",
+    "reg.live": "Aktif güzergâhlar",
+    "reg.drag": "Küreyi döndürmek için sürükleyin",
+    "r1.t": "Körfez Ülkeleri",
+    "r1.d": "Suudi Arabistan · BAE · Katar · Kuveyt · Umman · Bahreyn",
+    "r2.t": "Orta Doğu",
+    "r2.d": "Irak · Ürdün · Lübnan · Suriye",
+    "r3.t": "Kuzey Afrika",
+    "r3.d": "Libya · Cezayir · Fas · Tunus · Mısır",
+    "r4.t": "Avrupa",
+    "r4.d": "Almanya · Fransa · Hollanda · Belçika · Birleşik Krallık",
+    "show.eyebrow": "Seçilmiş",
+    "show.title": "Fark yaratan <em>tasarımlar</em>",
+    "tag.living": "Oturma",
+    "sp.hint": "Detayları keşfetmek için noktaların üzerine gelin",
+    "sp.eyebrow": "Öne Çıkan Ürün",
+    "sp.title": "Görmeden önce <em>hissedeceğiniz</em> detaylar",
+    "sp.set": "Koltuk Takımı",
+    "sp.berg": "Berjer",
+    "sp.three": "3'lü Koltuk",
+    "sp.len": "Uzunluk",
+    "sp.hei": "Yükseklik",
+    "sp.dep": "Derinlik",
+    "sp.fab": "Kumaş",
+    "sp.custom": "Tüm ölçüler, kumaşlar ve renkler siparişe göre özelleştirilebilir.",
+    "sp.ask": "Fiyat sorun",
+    "cat.eyebrow": "Katalog 2026",
+    "cat.title": "Tüm koleksiyonlarımız <em>tek katalogda</em>",
+    "cat.f1": "Güncel ihracat fiyatları",
+    "cat.f2": "Her parçanın ölçüleri",
+    "cat.f3": "Mevcut kumaş renkleri",
+    "cat.f4": "Nakliye ve teslimat koşulları",
+    "cat.note": "Kataloğu WhatsApp'tan gönderiyoruz. Spam yok.",
+    "cat.hint": "Kataloğu açmak için üzerine gelin",
+    "cat.lead": "İhracat fiyatlarıyla tam kataloğu isteyin; birkaç saat içinde WhatsApp veya e-posta ile size ulaşsın.",
+    "ct.eyebrow": "İletişim",
+    "ct.title": "<em>Bir sonraki projenize</em> başlayalım",
+    "ct.wa": "WhatsApp",
+    "ct.mail": "E-posta",
+    "ct.addr": "Merkez Ofis",
+    "ct.addrv": "İstanbul, Türkiye",
+    "f.name": "Ad soyad",
+    "f.company": "Şirket",
+    "f.phone": "Telefon / WhatsApp",
+    "f.country": "Ülke",
+    "f.type": "Talep türü",
+    "f.msg": "Detaylar (adet, ölçü, teslim tarihi)",
+    "f.send": "WhatsApp ile gönder",
+    "f.note": "Tüm taleplere 24 saat içinde yanıt veriyoruz.",
+    "o1": "Koltuk takımları",
+    "o2": "Köşe koltuklar",
+    "o3": "Modüler",
+    "o4": "Otel / ticari proje",
+    "o5": "Bahçe ve çay takımları",
+    "o6": "Diğer",
+    "ct.lead": "Talebinizi gönderin; dilinizi konuşan bir danışman net bir teklifle size dönsün.",
+    "ct.copy": "Kopyala",
+    "ct.formT": "Teklif talebi",
+    "ct.formD": "Bir dakikadan az sürer",
+    "f.err": "Lütfen adınızı, telefonunuzu ve ülkenizi girin ve bir talep türü seçin.",
+    "f.ok": "WhatsApp talebiniz hazır şekilde açıldı. Tamamlamak için orada gönder'e basın.",
+    "ft.about": "Lüks Türk mobilyasını fabrikadan dünyaya ihraç ediyoruz.",
+    "ft.ctaEy": "Başlamaya hazır mısınız?",
+    "ft.ctaT": "<em>Bir sonraki projenizi</em> birlikte döşeyelim",
+    "ft.company": "Şirket",
+    "ft.coll": "Koleksiyonlar",
+    "ft.rights": "Tüm hakları saklıdır."
+  };
   const AR = {};
   $$("[data-i18n]").forEach(el => AR[el.dataset.i18n] = el.textContent);
   $$("[data-i18n-html]").forEach(el => AR[el.dataset.i18nHtml] = el.innerHTML);
+  const DICTS = { ar: AR, en: EN, tr: TR };
+  const curLang = () => document.documentElement.lang;
 
   $$(".btn > span[data-i18n]").forEach(sp => {
     const r = document.createElement("span"); r.className = "roll"; r.dataset.roll = "";
@@ -107,7 +254,7 @@
   let activeLink = null, moveInd = () => {};
 
   function setLang(lang) {
-    const dict = lang === "en" ? EN : AR;
+    const dict = DICTS[lang] || AR;
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
     $$("[data-i18n]").forEach(el => { const v = dict[el.dataset.i18n]; if (v) el.textContent = v; });
@@ -118,6 +265,7 @@
     try { buildMarquee(); } catch (e) { /* not built yet on first load */ }
     try { renderSpots(); moveKnob(); } catch (e) { /* spotlight not ready yet */ }
     try { pCurrent = -2; processScroll(); } catch (e) { /* timeline not ready yet */ }
+    try { $("#pmTitle").textContent = $$(".pstep h3")[Math.max(pCurrent, 0)].textContent; } catch (e) { /* timeline not ready yet */ }
     if (window.__cfLayout) window.__cfLayout();
     requestAnimationFrame(() => moveInd(activeLink));
     try { localStorage.setItem("nx-lang", lang); } catch (e) {}
@@ -187,15 +335,15 @@
 
   /* ---------- Marquee (duplicate for seamless loop) ---------- */
   const COUNTRIES = [
-    ["SA", "السعودية", "Saudi Arabia"], ["AE", "الإمارات", "UAE"], ["QA", "قطر", "Qatar"], ["KW", "الكويت", "Kuwait"],
-    ["OM", "عُمان", "Oman"], ["BH", "البحرين", "Bahrain"], ["IQ", "العراق", "Iraq"], ["JO", "الأردن", "Jordan"],
-    ["LB", "لبنان", "Lebanon"], ["LY", "ليبيا", "Libya"], ["DZ", "الجزائر", "Algeria"], ["MA", "المغرب", "Morocco"],
-    ["DE", "ألمانيا", "Germany"], ["FR", "فرنسا", "France"], ["NL", "هولندا", "Netherlands"], ["GB", "بريطانيا", "United Kingdom"]
+    ["SA", "السعودية", "Saudi Arabia", "Suudi Arabistan"], ["AE", "الإمارات", "UAE", "BAE"], ["QA", "قطر", "Qatar", "Katar"], ["KW", "الكويت", "Kuwait", "Kuveyt"],
+    ["OM", "عُمان", "Oman", "Umman"], ["BH", "البحرين", "Bahrain", "Bahreyn"], ["IQ", "العراق", "Iraq", "Irak"], ["JO", "الأردن", "Jordan", "Ürdün"],
+    ["LB", "لبنان", "Lebanon", "Lübnan"], ["LY", "ليبيا", "Libya", "Libya"], ["DZ", "الجزائر", "Algeria", "Cezayir"], ["MA", "المغرب", "Morocco", "Fas"],
+    ["DE", "ألمانيا", "Germany", "Almanya"], ["FR", "فرنسا", "France", "Fransa"], ["NL", "هولندا", "Netherlands", "Hollanda"], ["GB", "بريطانيا", "United Kingdom", "Birleşik Krallık"]
   ];
   const mq = $("#marquee");
   function buildMarquee() {
-    const en = document.documentElement.lang === "en";
-    const items = COUNTRIES.map(([c, ar, e]) => `<span class="mk"><span class="mk__code">${c}</span>${en ? e : ar}</span>`).join("");
+    const li = { ar: 1, en: 2, tr: 3 }[curLang()] || 1;
+    const items = COUNTRIES.map(row => `<span class="mk"><span class="mk__code">${row[0]}</span>${row[li]}</span>`).join("");
     mq.innerHTML = items + items;
     requestAnimationFrame(() => mq.style.setProperty("--mq-dur", (mq.scrollWidth / 2 / 35).toFixed(1) + "s"));
   }
@@ -570,21 +718,21 @@
       name: "Azori", fabric: "Dara · Atlas", swatches: ["#d9ccb7", "#7b6466", "#c19a5b"],
       pieces: { three: [225, 100, 85], berg: [95, 100, 85] },
       spots: [
-        { x: 40, y: 20, ar: ["القماش", "بوكليه ناعم بملمس دافئ"], en: ["Fabric", "Soft, warm-touch bouclé"] },
-        { x: 33, y: 39, ar: ["التنجيد", "مخمل مضلّع بخياطة يدوية"], en: ["Upholstery", "Hand-stitched pleated velvet"] },
-        { x: 39, y: 49, ar: ["القاعدة", "إطار ستانلس بلون ذهبي"], en: ["Base", "Gold-finish stainless frame"] },
-        { x: 50, y: 38, ar: ["الطاولات", "سطح رخامي وأرجل مضلّعة"], en: ["Tables", "Marble tops, fluted bases"] },
-        { x: 70, y: 27, ar: ["البيرجير", "بنفس التصميم والقماش"], en: ["Bergère", "Same design and fabric"] }
+        { x: 40, y: 20, ar: ["القماش", "بوكليه ناعم بملمس دافئ"], en: ["Fabric", "Soft, warm-touch bouclé"], tr: ["Kumaş", "Yumuşak, sıcak dokulu bukle"] },
+        { x: 33, y: 39, ar: ["التنجيد", "مخمل مضلّع بخياطة يدوية"], en: ["Upholstery", "Hand-stitched pleated velvet"], tr: ["Döşeme", "El dikişi pilili kadife"] },
+        { x: 39, y: 49, ar: ["القاعدة", "إطار ستانلس بلون ذهبي"], en: ["Base", "Gold-finish stainless frame"], tr: ["Ayak", "Altın rengi paslanmaz çelik çerçeve"] },
+        { x: 50, y: 38, ar: ["الطاولات", "سطح رخامي وأرجل مضلّعة"], en: ["Tables", "Marble tops, fluted bases"], tr: ["Sehpalar", "Mermer tabla, oluklu gövde"] },
+        { x: 70, y: 27, ar: ["البيرجير", "بنفس التصميم والقماش"], en: ["Bergère", "Same design and fabric"], tr: ["Berjer", "Aynı tasarım ve kumaş"] }
       ]
     },
     luka: {
       name: "Yeni Luka", fabric: "Troya", swatches: ["#e7dbc8", "#7a5a45", "#b08a6a"],
       pieces: { three: [230, 80, 100], berg: [115, 95, 90] },
       spots: [
-        { x: 43, y: 46, ar: ["القماش", "Troya بملمس ناعم"], en: ["Fabric", "Soft-touch Troya"] },
-        { x: 30, y: 55, ar: ["القاعدة", "ملفوفة بقماش متباين"], en: ["Base", "Wrapped in a contrast fabric"] },
-        { x: 54, y: 58, ar: ["الأرجل", "خشب طبيعي متين"], en: ["Legs", "Solid natural wood"] },
-        { x: 70, y: 55, ar: ["البيرجير", "طاولة جانبية مدمجة"], en: ["Bergère", "Built-in side table"] }
+        { x: 43, y: 46, ar: ["القماش", "Troya بملمس ناعم"], en: ["Fabric", "Soft-touch Troya"], tr: ["Kumaş", "Yumuşak dokulu Troya"] },
+        { x: 30, y: 55, ar: ["القاعدة", "ملفوفة بقماش متباين"], en: ["Base", "Wrapped in a contrast fabric"], tr: ["Taban", "Zıt renkli kumaşla kaplı"] },
+        { x: 54, y: 58, ar: ["الأرجل", "خشب طبيعي متين"], en: ["Legs", "Solid natural wood"], tr: ["Ayaklar", "Masif doğal ahşap"] },
+        { x: 70, y: 55, ar: ["البيرجير", "طاولة جانبية مدمجة"], en: ["Bergère", "Built-in side table"], tr: ["Berjer", "Yerleşik yan sehpa"] }
       ]
     }
   };
@@ -599,10 +747,10 @@
     spKnob.style.left = b.offsetLeft + "px"; spKnob.style.width = b.offsetWidth + "px";
   }
   function renderSpots() {
-    const en = document.documentElement.lang === "en", box = $("#spSpots");
+    const lg = curLang(), box = $("#spSpots");
     box.classList.remove("show");
     box.innerHTML = PRODUCTS[spCur].spots.map((p, i) => {
-      const [t, d] = en ? p.en : p.ar;
+      const [t, d] = p[lg] || p.ar;
       return `<button class="spot${p.y < 30 ? " low" : ""}" style="--x:${p.x}%;--y:${p.y}%;--i:${i}" aria-label="${t}"><span class="spot__tip"><b>${t}</b>${d}</span></button>`;
     }).join("");
     placeSpots();
@@ -680,7 +828,7 @@
   /* ---------- Quote form → WhatsApp ---------- */
   const qForm = $("#quoteForm"), qMsg = $("#qMsg");
   const MSG_AR = { "f.err": "يرجى تعبئة الاسم ورقم الهاتف والدولة واختيار نوع الطلب.", "f.ok": "فتحنا لك واتساب برسالة جاهزة. اضغط إرسال هناك لإتمام الطلب." };
-  const T = k => document.documentElement.lang === "en" ? EN[k] : (AR[k] || MSG_AR[k]);
+  const T = k => curLang() === "ar" ? (AR[k] || MSG_AR[k]) : (DICTS[curLang()] || EN)[k];
   const required = ["name", "phone", "country"];
   function qProgress() {
     const f = new FormData(qForm), keys = ["name", "company", "phone", "country", "type", "msg"];
