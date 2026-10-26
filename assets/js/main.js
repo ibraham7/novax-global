@@ -233,6 +233,11 @@
   }), { threshold: 0, rootMargin: "0px 0px -12% 0px" });
   $$(".reveal, .frame, .globe, [data-split], .about__media").forEach(el => io.observe(el));
 
+  $$(".about__ring").forEach(r => {
+    const chars = [...r.dataset.text];
+    r.innerHTML = chars.map((c, i) => `<span style="transform:rotate(${(360 / chars.length * i).toFixed(2)}deg)">${c}</span>`).join("");
+  });
+
   /* ---------- About: parallax layers, background word, pillar spotlight ---------- */
   const layers = $$("[data-speed]"), word = $("#aboutWord"), about = $("#about");
   function aboutScroll() {
