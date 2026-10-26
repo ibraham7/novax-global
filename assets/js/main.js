@@ -6,6 +6,7 @@
 
   /* ---------- i18n ---------- */
   const EN = {
+    "top.msg": "Direct from Türkiye's factories to the Gulf, the Middle East and Europe",
     "nav.about": "About", "nav.collections": "Collections", "nav.process": "Export Process",
     "nav.regions": "Markets", "nav.contact": "Contact",
     "cta.quote": "Request a Quote", "cta.explore": "Explore Collections", "cta.catalog": "Get the Catalog",
@@ -61,6 +62,10 @@
   $$("[data-i18n]").forEach(el => AR[el.dataset.i18n] = el.textContent);
   $$("[data-i18n-html]").forEach(el => AR[el.dataset.i18nHtml] = el.innerHTML);
 
+  function syncRolls() { $$("[data-roll]").forEach(r => r.dataset.text = r.textContent.trim()); }
+  syncRolls();
+  let activeLink = null, moveInd = () => {};
+
   function setLang(lang) {
     const dict = lang === "en" ? EN : AR;
     document.documentElement.lang = lang;
@@ -68,6 +73,8 @@
     $$("[data-i18n]").forEach(el => { const v = dict[el.dataset.i18n]; if (v) el.textContent = v; });
     $$("[data-i18n-html]").forEach(el => { const v = dict[el.dataset.i18nHtml]; if (v) el.innerHTML = v; });
     $$(".lang button").forEach(b => b.classList.toggle("active", b.dataset.lang === lang));
+    syncRolls();
+    requestAnimationFrame(() => moveInd(activeLink));
     try { localStorage.setItem("nx-lang", lang); } catch (e) {}
   }
   $$(".lang button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
@@ -119,15 +126,39 @@
   const mq = $("#marquee"); mq.innerHTML += mq.innerHTML;
 
   /* ---------- Header ---------- */
-  const header = $("#header"); let lastY = 0;
+  const header = $("#header"), progress = $("#progress"); let lastY = 0;
+  const navLinks = $$("#nav a"), ind = $("#navInd");
+  moveInd = link => {
+    if (!link) { ind.classList.remove("on"); return; }
+    ind.style.left = link.offsetLeft + "px"; ind.style.width = link.offsetWidth + "px"; ind.classList.add("on");
+  };
+  navLinks.forEach(a => a.addEventListener("mouseenter", () => moveInd(a)));
+  $("#nav").addEventListener("mouseleave", () => moveInd(activeLink));
+  const sections = navLinks.map(a => $(a.getAttribute("href"))).filter(Boolean);
+
   addEventListener("scroll", () => {
-    const y = scrollY;
+    const y = scrollY, max = document.documentElement.scrollHeight - innerHeight;
     header.classList.toggle("scrolled", y > 60);
-    header.classList.toggle("hide", y > lastY && y > 500 && !document.body.classList.contains("menu-open"));
+    header.classList.toggle("hide", y > lastY + 4 && y > 600 && !document.body.classList.contains("menu-open"));
+    if (y < lastY - 4) header.classList.remove("hide");
     lastY = y;
+    progress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
+    // scrollspy
+    let cur = null;
+    sections.forEach((sec, i) => { if (sec.getBoundingClientRect().top < innerHeight * .4) cur = navLinks[i]; });
+    if (cur !== activeLink) { activeLink = cur; navLinks.forEach(a => a.classList.toggle("active", a === cur)); if (!$("#nav:hover")) moveInd(cur); }
     const bg = $("#catalogBg");
     if (bg) { const r = bg.parentElement.getBoundingClientRect(); bg.style.transform = `translateY(${r.top * -0.15}px)`; }
   }, { passive: true });
+
+  /* ---------- Magnetic buttons ---------- */
+  $$("[data-magnetic]").forEach(el => {
+    el.addEventListener("mousemove", e => {
+      const r = el.getBoundingClientRect();
+      el.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .25}px, ${(e.clientY - r.top - r.height / 2) * .35}px)`;
+    });
+    el.addEventListener("mouseleave", () => el.style.transform = "");
+  });
 
   $("#burger").addEventListener("click", () => document.body.classList.toggle("menu-open"));
   $$("#mobileMenu a").forEach(a => a.addEventListener("click", () => document.body.classList.remove("menu-open")));
