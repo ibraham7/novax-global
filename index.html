@@ -123,35 +123,52 @@
     </div>
 
     <!-- ===== About ===== -->
-    <section class="section" id="about">
+    <section class="section about" id="about">
+      <div class="about__bgword" aria-hidden="true"><span id="aboutWord">NOVAX · GLOBAL · NOVAX · GLOBAL</span></div>
       <div class="container about__grid">
         <div class="about__media">
-          <div class="frame img-a"><img src="assets/img/products/oslo.jpg" alt="" loading="lazy"></div>
-          <div class="frame img-b"><img src="assets/img/products/yeni-luka.jpg" alt="" loading="lazy"></div>
-          <div class="about__badge"><div><b>TR</b><small data-i18n="about.badge">صُنع في تركيا</small></div></div>
+          <svg class="about__orbit" viewBox="0 0 400 400" aria-hidden="true"><circle cx="200" cy="200" r="196"/></svg>
+          <div class="about__img about__img--a frame" data-speed="-0.05"><img src="assets/img/products/oslo.jpg" alt="غرفة جلوس Oslo"></div>
+          <div class="about__img about__img--b frame" data-speed="0.09"><img src="assets/img/products/yeni-luka.jpg" alt="طقم Yeni Luka"></div>
+          <div class="about__seal" data-speed="0.14" aria-hidden="true">
+            <svg viewBox="0 0 200 200">
+              <defs><path id="sealPath" d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"/></defs>
+              <text direction="ltr" unicode-bidi="bidi-override"><textPath href="#sealPath">MADE IN TÜRKİYE · EXPORTED WORLDWIDE · </textPath></text>
+            </svg>
+            <b>TR</b>
+          </div>
+          <div class="about__chip" data-speed="-0.12">
+            <span class="about__chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+            <span><b data-i18n="about.chip.t">فحص قبل الشحن</b><small data-i18n="about.chip.d">كل قطعة تُعاين وتُصوَّر لك</small></span>
+          </div>
         </div>
+
         <div class="about__text">
           <span class="eyebrow reveal" data-i18n="about.eyebrow">من نحن</span>
-          <h2 class="h-section reveal reveal-d1" style="margin-top:20px" data-i18n-html="about.title">جسرك المباشر إلى <em>أفضل مصانع</em> الأثاث في تركيا</h2>
+          <h2 class="h-section about__title" data-split data-i18n-html="about.title">جسرك المباشر إلى <em>أفضل مصانع</em> الأثاث في تركيا</h2>
           <p class="lead reveal reveal-d2" data-i18n="about.p">NovaX Global شركة تصدير متخصصة تربط المشترين والمطوّرين وأصحاب المعارض حول العالم بنخبة مصانع الأثاث التركية في إينغول وإسطنبول وقيصري. نختصر عليك المسافة واللغة والوقت، ونضمن لك السعر والجودة نفسها التي تراها في المصنع.</p>
-          <div class="pillars reveal reveal-d3">
-            <div class="pillar">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 21V9l6-4v4l6-4v4l6-4v16H3z"/><path d="M7 21v-4h3v4M14 13h3"/></svg>
+          <div class="about__route reveal reveal-d3" aria-hidden="true">
+            <span data-i18n="about.r1">المصنع</span><i></i><span data-i18n="about.r2">الفحص</span><i></i><span data-i18n="about.r3">الشحن</span><i></i><span data-i18n="about.r4">بابك</span>
+          </div>
+          <div class="pillars">
+            <div class="pillar reveal">
+              <span class="pillar__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path pathLength="1" d="M3 21V9l6-4v4l6-4v4l6-4v16H3z"/><path pathLength="1" d="M7 21v-4h3v4M14 13h3"/></svg></span>
               <h4 data-i18n="p1.t">من المصنع مباشرة</h4><p data-i18n="p1.d">بدون وسطاء، بأسعار المصنع.</p>
             </div>
-            <div class="pillar">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5L16 9.5"/></svg>
+            <div class="pillar reveal reveal-d1">
+              <span class="pillar__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path pathLength="1" d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path pathLength="1" d="M8.5 12l2.5 2.5L16 9.5"/></svg></span>
               <h4 data-i18n="p2.t">فحص جودة صارم</h4><p data-i18n="p2.d">معاينة كل قطعة قبل التحميل.</p>
             </div>
-            <div class="pillar">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M2 17h20l-2 4H4l-2-4z"/><path d="M5 17V9h6v8M11 12h7v5M7 9V5h2v4"/></svg>
+            <div class="pillar reveal reveal-d2">
+              <span class="pillar__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path pathLength="1" d="M2 17h20l-2 4H4l-2-4z"/><path pathLength="1" d="M5 17V9h6v8M11 12h7v5M7 9V5h2v4"/></svg></span>
               <h4 data-i18n="p3.t">شحن وتخليص كامل</h4><p data-i18n="p3.d">بحراً وبراً حتى باب مستودعك.</p>
             </div>
-            <div class="pillar">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 20l4-1L19 8l-3-3L5 16l-1 4z"/><path d="M14 7l3 3"/></svg>
+            <div class="pillar reveal reveal-d3">
+              <span class="pillar__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path pathLength="1" d="M4 20l4-1L19 8l-3-3L5 16l-1 4z"/><path pathLength="1" d="M14 7l3 3"/></svg></span>
               <h4 data-i18n="p4.t">تصنيع حسب الطلب</h4><p data-i18n="p4.d">مقاسات وأقمشة وألوان على ذوقك.</p>
             </div>
           </div>
+          <a href="#process" class="btn btn--icon reveal" data-magnetic><span data-i18n="about.cta">كيف نعمل؟</span><span class="btn__icon"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></span></a>
         </div>
       </div>
     </section>

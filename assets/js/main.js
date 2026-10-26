@@ -18,6 +18,8 @@
     "about.badge": "Made in Türkiye", "about.eyebrow": "About Us",
     "about.title": "Your direct bridge to <em>Türkiye's finest</em> furniture makers",
     "about.p": "NovaX Global is a specialist export house connecting buyers, developers and showroom owners worldwide with leading furniture factories in İnegöl, Istanbul and Kayseri. We remove the distance, the language barrier and the guesswork — with factory pricing and factory quality.",
+    "about.chip.t": "Inspected before shipping", "about.chip.d": "Every piece checked and photographed for you",
+    "about.r1": "Factory", "about.r2": "Inspection", "about.r3": "Shipping", "about.r4": "Your door", "about.cta": "How we work",
     "p1.t": "Factory Direct", "p1.d": "No middlemen, factory prices.",
     "p2.t": "Strict Quality Control", "p2.d": "Every piece inspected before loading.",
     "p3.t": "Shipping & Customs", "p3.d": "Sea and land freight to your warehouse.",
@@ -67,6 +69,27 @@
     const r = document.createElement("span"); r.className = "roll"; r.dataset.roll = "";
     sp.replaceWith(r); r.appendChild(sp);
   });
+  function splitWords() {
+    $$("[data-split]").forEach(el => {
+      let i = 0;
+      const wrap = node => {
+        const w = document.createElement("span"); w.className = "w";
+        const inner = document.createElement("span"); inner.style.setProperty("--i", i++);
+        inner.appendChild(node); w.appendChild(inner); return w;
+      };
+      [...el.childNodes].forEach(n => {
+        if (n.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(part => {
+            if (!part) return;
+            frag.appendChild(/^\s+$/.test(part) ? document.createTextNode(" ") : wrap(document.createTextNode(part)));
+          });
+          n.replaceWith(frag);
+        } else el.replaceChild(wrap(n.cloneNode(true)), n);
+      });
+    });
+  }
+  splitWords();
   function syncRolls() { $$("[data-roll]").forEach(r => r.dataset.text = r.textContent.trim()); }
   syncRolls();
   let activeLink = null, moveInd = () => {};
@@ -78,6 +101,7 @@
     $$("[data-i18n]").forEach(el => { const v = dict[el.dataset.i18n]; if (v) el.textContent = v; });
     $$("[data-i18n-html]").forEach(el => { const v = dict[el.dataset.i18nHtml]; if (v) el.innerHTML = v; });
     $$(".lang button").forEach(b => b.classList.toggle("active", b.dataset.lang === lang));
+    splitWords();
     syncRolls();
     try { buildMarquee(); } catch (e) { /* not built yet on first load */ }
     requestAnimationFrame(() => moveInd(activeLink));
@@ -206,8 +230,23 @@
     if (!e.isIntersecting) return;
     e.target.classList.add("in");
     io.unobserve(e.target);
-  }), { threshold: .15, rootMargin: "0px 0px -60px 0px" });
-  $$(".reveal, .frame, .globe").forEach(el => io.observe(el));
+  }), { threshold: 0, rootMargin: "0px 0px -12% 0px" });
+  $$(".reveal, .frame, .globe, [data-split], .about__media").forEach(el => io.observe(el));
+
+  /* ---------- About: parallax layers, background word, pillar spotlight ---------- */
+  const layers = $$("[data-speed]"), word = $("#aboutWord"), about = $("#about");
+  function aboutScroll() {
+    const r = about.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > innerHeight) return;
+    const mid = r.top + r.height / 2 - innerHeight / 2;
+    layers.forEach(l => l.style.transform = `translate3d(0, ${(mid * +l.dataset.speed).toFixed(1)}px, 0)`);
+    word.style.transform = `translate3d(${(-mid * .35 - 200).toFixed(1)}px, 0, 0)`;
+  }
+  addEventListener("scroll", aboutScroll, { passive: true }); aboutScroll();
+  $$(".pillar").forEach(p => p.addEventListener("mousemove", e => {
+    const r = p.getBoundingClientRect();
+    p.style.setProperty("--x", e.clientX - r.left + "px"); p.style.setProperty("--y", e.clientY - r.top + "px");
+  }));
 
   /* ---------- Counters ---------- */
   const co = new IntersectionObserver(entries => entries.forEach(e => {
